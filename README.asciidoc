@@ -4,18 +4,6 @@
 - Mechanics: Georgs Narbuts   
 - Electronics: Anish Shrestha   
 - Programming: Artem Kabakov   
-   
-=== Mechanics
-   
-   
-
-=== Electronics
-   
-   
-
-=== Programming
-   
-   
 
 
 == Blogs
