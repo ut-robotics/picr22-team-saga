@@ -1,0 +1,12 @@
+(fp_lib_table
+  (lib (name "STM32G441KB")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/STM32G441KB")(options "")(descr ""))
+  (lib (name "NCP164C")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/NCP164C")(options "")(descr ""))
+  (lib (name "Samtec FTSH-105-01-L-DV-K")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/Programmer_Conenctor")(options "")(descr ""))
+  (lib (name "Micro-MaTch215079-4")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/Micro-MaTch")(options "")(descr ""))
+  (lib (name "MAX14930")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/MAX14930")(options "")(descr ""))
+  (lib (name "MAX12930")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/MAX12930")(options "")(descr ""))
+  (lib (name "DRV8243")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/DRV8243")(options "")(descr ""))
+  (lib (name "CM1223")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/CM1223")(options "")(descr ""))
+  (lib (name "NCV8730")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/NCV8730")(options "")(descr ""))
+  (lib (name "USB_Amphenol")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/USB")(options "")(descr ""))
+)
