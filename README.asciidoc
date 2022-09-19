@@ -1,0 +1,22 @@
+== Team SAGA
+
+=== Team members
+- Mechanics: Georgs Narbuts   
+- Elecronics: Anish Shrestha   
+- Programming: Artem Kabakov   
+   
+   
+== Blog
+
+=== Monday 2022-09-05
+*Anish:* Connected the main board if the test robot with motor drivers. Placed everything in the chasis provided. Checked the wire connections. (2h) +   
+
+
+=== Thursday 2022-09-08
+*Anish:* Gone through the schematic to follow for wiring. Prepared the wire accordingly with appropriate conenctors. Connected everything as per the schematic. Tested motors individually, and conenction with the drivers. (1.5h) +   
+
+=== Monday 2022-09-12
+*Anish*: Following the completion of software, tested for driving the test robot straight, commands given from the computer manually. Conencted the thrower motor, and tested. Proceded to schematic design for new robot. (2.5h) +   
+   
+=== Thursday 2022-09-15
+*Anish:* Completed the schematic design (apparently). Started the work for pcb design. Changed one of the motors as it turned out to be faulty. tested the new motor, and assembled it in the test robot. (2h) +   
