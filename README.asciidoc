@@ -30,3 +30,15 @@
 
 == Monday 2022-09-19
 *Georgs:* Submitted the thrower design for approval, got some feedback that needs to be fixed. (1.5h) +
+
+=== Monday 2022-09-19
+*Anish:* PCB dsign continued. Some new footprints made (custom). Progress presentation. (1.5h)+   
+
+=== Thursday 2022-09-22
+*Anish:* The omni-motion tested. Got sued to the battery basics, and received teh batetry. Made connectors compliant to the ones with abttery. Rewired the test robot. (2h)+   
+
+=== Monday 2022-09-26
+*Anish:* Needed to change the PCB schematic adn design since few components were changed. PCB was too large, needed to make it smaller. (1h)+   
+
+=== Thursday 2022-09-29
+*Anish:* PCB design completed. Needed few final tweaks. Sent the design for approval. Assembled the parts of the test robot after changing few parts (motor and driver) (1.5h)+   
