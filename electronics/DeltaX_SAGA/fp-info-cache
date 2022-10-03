@@ -1,4 +1,4 @@
-20401582901199413
+20403248644349652
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -2372,13 +2372,13 @@ speaker CUI
 0
 2
 2
-CM1223
-SOT192P237X122-4N
+CM1223-02SO
+SOT95P280X145-5N
 
 
 0
-4
-4
+5
+5
 Calibration_Scale
 Gauge_10mm_Type1_CopperTop
 Gauge, Massstab, 10mm, CopperTop, Type 1,
@@ -80513,6 +80513,13 @@ Logo WEEE
 0
 0
 0
+TPS62933
+TPS62933
+
+
+0
+8
+8
 TerminalBlock
 TerminalBlock_Altech_AK300-2_P5.00mm
 Altech AK300 terminal block, pitch 5.0mm, 45 degree angled, see http://www.mouser.com/ds/2/16/PCBMETRC-24178.pdf
