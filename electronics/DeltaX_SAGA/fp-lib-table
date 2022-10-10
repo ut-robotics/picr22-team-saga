@@ -9,6 +9,7 @@
   (lib (name "NCV8730")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/NCV8730")(options "")(descr ""))
   (lib (name "USB_Amphenol")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/USB")(options "")(descr ""))
   (lib (name "CM1223-02SO")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/CM1223")(options "")(descr ""))
-  (lib (name "Library")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/TPS62933/Library.pretty")(options "")(descr ""))
   (lib (name "TPS62933")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/TPS62933.pretty")(options "")(descr ""))
+  (lib (name "BUK6Y10")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/BUK6Y10")(options "")(descr ""))
+  (lib (name "SRP6060FA5R6M")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/SRP6060FA5R6M/SRP6060FA5R6M.pretty")(options "")(descr ""))
 )
