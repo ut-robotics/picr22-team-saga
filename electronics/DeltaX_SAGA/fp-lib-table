@@ -12,4 +12,5 @@
   (lib (name "TPS62933")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/TPS62933.pretty")(options "")(descr ""))
   (lib (name "BUK6Y10")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/BUK6Y10")(options "")(descr ""))
   (lib (name "SRP6060FA5R6M")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/SRP6060FA5R6M/SRP6060FA5R6M.pretty")(options "")(descr ""))
+  (lib (name "1pinSMD")(type "KiCad")(uri "${CUSTOM_USER_LIBRARY}/1pinSMD/1pinSMD.pretty")(options "")(descr ""))
 )
