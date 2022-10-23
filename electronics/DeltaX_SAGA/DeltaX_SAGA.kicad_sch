@@ -4610,7 +4610,7 @@
     (property "Reference" "L1" (id 0) (at 231.3178 71.9582 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "7.6uH" (id 1) (at 232.6132 68.8594 90)
+    (property "Value" "6.8uH" (id 1) (at 232.6132 68.8594 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "SRP6060FA5R6M:SRP6060FA5R6M" (id 2) (at 229.8446 70.7898 0)
@@ -6376,7 +6376,7 @@
       (reference "J17") (unit 1) (value "Thrower-") (footprint "1pinSMD:1PinSMD")
     )
     (path "/69cf5053-6b07-4bfe-8c3a-5438a0737fc8"
-      (reference "L1") (unit 1) (value "7.6uH") (footprint "SRP6060FA5R6M:SRP6060FA5R6M")
+      (reference "L1") (unit 1) (value "6.8uH") (footprint "SRP6060FA5R6M:SRP6060FA5R6M")
     )
     (path "/a41829a6-8151-41c8-b9a0-f89cf565cdea"
       (reference "Q1") (unit 1) (value "BUK6Y10") (footprint "BUK6Y10:TO127P600X120-5N")
