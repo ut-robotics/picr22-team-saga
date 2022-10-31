@@ -51,4 +51,9 @@
 === Monday 2022-10-10
 *Anish:* Still there were issues with the board design. Mainly with the high current paths and differential USB pair routing. Updated the board with hgh current paths with copper fill. Tweaked few other things in the PCB design to make it an optimal design (1.5h)+
 
-=== Thursday 2022-10-13
+=== Monday 2022-10-24
+*Anish:* Rewired the cables including the thrower motor in test robot. Checked the connections and if the motors were well connected by powering the robot and driving the motors: wheels and thrower. Continued with the PCB design part. (1.5h)+
+
+
+=== Thursday 2022-10-27
+*Anish:* Pushed the new design to github repo. Got few more issues in the design, and solved them. Repushed the commits. Few issues were remaining. Waiting for the response/approval. (2h) +
