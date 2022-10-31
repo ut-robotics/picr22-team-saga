@@ -47,12 +47,14 @@
 
 === Thursday 2022-10-06
 *Anish:* With some of the previous issues solved, the PCB design had new issues assigned. Sequentially tried to sort those issues. (1.5h)+
+*Georgs* Thrower design aproved, got acquainted with the CNC mill. Milled out parts for the thrower. (3h)+
 
 === Monday 2022-10-10
 *Anish:* Still there were issues with the board design. Mainly with the high current paths and differential USB pair routing. Updated the board with hgh current paths with copper fill. Tweaked few other things in the PCB design to make it an optimal design (1.5h)+
-
+*Assembled the thrower and attached it to the test robot. (2h)+
 === Monday 2022-10-24
 *Anish:* Rewired the cables including the thrower motor in test robot. Checked the connections and if the motors were well connected by powering the robot and driving the motors: wheels and thrower. Continued with the PCB design part. (1.5h)+
+*Georgs* Started designing the omni-wheels. Goes very slow. (3.5h)+
 
 
 === Thursday 2022-10-27
