@@ -64,19 +64,19 @@
 <<<<<<< HEAD
 
 === Monday 2022-10-31
-*Anish:* Progress presentation. Started camera calibration. (1.5h)+
+*Anish:* Progress presentation. Started camera calibration. (1.5h)+   
 *Artem:* Attended progress presentations. (1h)+
 
 === Thursday 2022-11-3
-*Anish:* Some issues related to the realsense library. Solving the issues. Started camera configuration: blod detection and setting optimum parameter values. (2h)+
+*Anish:* Some issues related to the realsense library. Solving the issues. Started camera configuration: blod detection and setting optimum parameter values. (2h)+   
 *Artem:* Received PCB and Start soldering. Work with camera calibration. (1.5h)+ 
 
 === Monday 2022-11-7
-*Anish:* Configured color settings for the realsense and started the ball detection. Lighting and brightness gives problems while ball detection. Reconfigured color settings and parameters. (2.5h)+
+*Anish:* Configured color settings for the realsense and started the ball detection. Lighting and brightness gives problems while ball detection. Reconfigured color settings and parameters. (2.5h)+   
 *Artem:* Resolve issues with PCB. Running ball detection program. (2h)+
 
 === Thursday 2022-11-10
-*Anish:* Configures the camera in computer lab. Detects the ball. But in other rooms, the ball detection program is irresponsive. Sorting out the problems. (2h)+
+*Anish:* Configures the camera in computer lab. Detects the ball. But in other rooms, the ball detection program is irresponsive. Sorting out the problems. (2h)+   
 *Artem:* Soldering and working with the PCB. Many problems faced in order to sue the new PCBs.(1.5h)+
 =======
 >>>>>>> fbf892d2f603d671732260a34ee3cdd15058ba98
