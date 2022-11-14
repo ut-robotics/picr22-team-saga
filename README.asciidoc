@@ -48,15 +48,20 @@
 === Thursday 2022-10-06
 *Anish:* With some of the previous issues solved, the PCB design had new issues assigned. Sequentially tried to sort those issues. (1.5h)+
 
+*Georgs* Thrower design aproved, got acquainted with the CNC mill. Milled out parts for the thrower. (3h)+
+
 === Monday 2022-10-10
 *Anish:* Still there were issues with the board design. Mainly with the high current paths and differential USB pair routing. Updated the board with hgh current paths with copper fill. Tweaked few other things in the PCB design to make it an optimal design (1.5h)+
 
+*Georgs* Assembled the thrower and attached it to the test robot. (2h)+
 === Monday 2022-10-24
 *Anish:* Rewired the cables including the thrower motor in test robot. Checked the connections and if the motors were well connected by powering the robot and driving the motors: wheels and thrower. Continued with the PCB design part. (1.5h)+
+*Georgs* Started designing the omni-wheels. Goes very slow. (3.5h)+
 
 
 === Thursday 2022-10-27
 *Anish:* Pushed the new design to github repo. Got few more issues in the design, and solved them. Repushed the commits. Few issues were remaining. Waiting for the response/approval. (2h) +
+<<<<<<< HEAD
 
 === Monday 2022-10-31
 *Anish:* Progress presentation. Started camera calibration. (1.5h)+
@@ -73,3 +78,5 @@
 === Thursday 2022-11-10
 *Anish:* Configures the camera in computer lab. Detects the ball. But in other rooms, the ball detection program is irresponsive. Sorting out the problems. (2h)+
 *Artem:* Soldering and working with the PCB. Many problems faced in order to sue the new PCBs.(1.5h)+
+=======
+>>>>>>> fbf892d2f603d671732260a34ee3cdd15058ba98
