@@ -56,6 +56,7 @@
 *Georgs* Assembled the thrower and attached it to the test robot. (2h)+
 === Monday 2022-10-24
 *Anish:* Rewired the cables including the thrower motor in test robot. Checked the connections and if the motors were well connected by powering the robot and driving the motors: wheels and thrower. Continued with the PCB design part. (1.5h)+
+
 *Georgs* Started designing the omni-wheels. Goes very slow. (3.5h)+
 
 
@@ -65,6 +66,8 @@
 
 === Monday 2022-10-31
 *Anish:* Progress presentation. Started camera calibration. (1.5h) +
+
+*Georgs* Progress presentations, wheel design started. (2h) +
 
 *Artem:* Attended progress presentations. (1h) +
 
@@ -76,10 +79,14 @@
 === Monday 2022-11-7
 *Anish:* Configured color settings for the realsense and started the ball detection. Lighting and brightness gives problems while ball detection. Reconfigured color settings and parameters. (2.5h) +   
 
+*Georgs* Omniwheel design, took some measurements. Everythings going smoothly. (2h) +
+
 *Artem:* Resolve issues with PCB. Running ball detection program. (2h) +
 
 === Thursday 2022-11-10
 *Anish:* Configures the camera in computer lab. Detects the ball. But in other rooms, the ball detection program is irresponsive. Sorting out the problems. (2h) +   
+
+*Georgs* Printed a test piece for omniwheel design. The rollers fit in great. The design is ready for approval. Submitted for approval. (3h) +
 
 *Artem:* Soldering and working with the PCB. Many problems faced in order to sue the new PCBs.(1.5h) +
 =======
