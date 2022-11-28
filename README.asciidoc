@@ -82,5 +82,17 @@
 *Anish:* Configures the camera in computer lab. Detects the ball. But in other rooms, the ball detection program is irresponsive. Sorting out the problems. (2h) +   
 
 *Artem:* Soldering and working with the PCB. Many problems faced in order to sue the new PCBs.(1.5h) +
-=======
->>>>>>> fbf892d2f603d671732260a34ee3cdd15058ba98
+
+=== Monday 2022-11-14
+*Anish:* Progress presentation. Tried to reconfigure all the things including the baskets and field. (2h) +
+
+=== Thursday 2022-11-17
+*Anish:* Mainboard communication with the software part, communicating over serial. Sending commands for motors turning in various configuration with thrower as well. Configuring various objects like balls, field, baskets, b/w parts and others. Tried to come up with a proper detection algorithm. (3h) +
+*Artem:* Testing the mainboard; driving motors (1h) +
+
+=== Monday 2022-11-21
+*Anish:* Programmed for the robot to find the ball and turn where the ball is. Used the linear scaling to map the speed from the distance between the ball and the center of the camera frame. Problems detected with linear scling: not accurat and has issues as ball is pretty far from the robot. Tried further to scale the speed, but failed. (3.5h) +
+*Artem:* Soldering the new PCB. Connected few terminals with wire as the MOSFET could not tbe interfaced. (1.5h) +
+
+=== Wednesday 2022-11-23
+*Anish:* Programmed the software part for ball detectiona nd follow. Ran into the same problem of not so precise ball tracking. Detects the ball but the tracking algorithm fails. Need to change the scaling factor and might need to incorporate PID control as the movement in left and right motion is not symmetric. Tested the thrower and calibrated the thrower speed according to the distance. interpoaltion yet to be implemented. Here also lienar scaling performed, but not precise. Reconfigured all color confugurations again as theer were few problems while ball detection. (4.5h) +
