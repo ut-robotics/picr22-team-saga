@@ -25,7 +25,7 @@ if __name__ == "__main__":
             print("Keyboard Interrupt ...")
             print("Closing ...")
             robot.close()
-            break
+            # break
 
         # finally:
         #     # robot.close()
