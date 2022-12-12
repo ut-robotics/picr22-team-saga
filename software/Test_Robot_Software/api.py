@@ -25,7 +25,7 @@ class RobotMovement:
                 break
         
         if serial_port is None:
-            print("Serial port not found")
+            raise Exception("Could not find the COM port")
         
         self.ser = serial.Serial(serial_port, 115200)
 
