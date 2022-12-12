@@ -64,7 +64,10 @@ def main_loop():
                 print(f"speed_y: {speed_y}")     
                       
                 api.RobotMovement.move(speed_x, speed_y, -speed_x*1.5)
-                
+
+            else:
+                pass
+
             # print(largest)           
 
            # This is where you add the driving behaviour of your robot. It should be able to filter out
