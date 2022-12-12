@@ -102,7 +102,7 @@ class ImageProcessor():
                 cv2.circle(self.debug_frame,(obj_x, obj_y), 10, (0,255,0), 2)
 
             balls.append(Object(x = obj_x, y = obj_y, size = size, distance = obj_dst, exists = True))
-
+        
         balls.sort(key= lambda x: x.distance)
 
         return balls
