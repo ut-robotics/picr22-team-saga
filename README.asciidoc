@@ -96,6 +96,7 @@
 === Thursday 2022-11-17
 *Anish:* Mainboard communication with the software part, communicating over serial. Sending commands for motors turning in various configuration with thrower as well. Configuring various objects like balls, field, baskets, b/w parts and others. Tried to come up with a proper detection algorithm. (3h) +
 *Artem:* Testing the mainboard; driving motors (1h) +
+*Georgs* Printed out all of the needed omniwheel parts (3h)+
 
 === Monday 2022-11-21
 *Anish:* Programmed for the robot to find the ball and turn where the ball is. Used the linear scaling to map the speed from the distance between the ball and the center of the camera frame. Problems detected with linear scling: not accurat and has issues as ball is pretty far from the robot. Tried further to scale the speed, but failed. (3.5h) +
@@ -103,6 +104,7 @@
 
 === Wednesday 2022-11-23
 *Anish:* Programmed the software part for ball detectiona nd follow. Ran into the same problem of not so precise ball tracking. Detects the ball but the tracking algorithm fails. Need to change the scaling factor and might need to incorporate PID control as the movement in left and right motion is not symmetric. Tested the thrower and calibrated the thrower speed according to the distance. interpoaltion yet to be implemented. Here also lienar scaling performed, but not precise. Reconfigured all color confugurations again as theer were few problems while ball detection. (4.5h) +
+<<<<<<< HEAD
 
 === Monday 2022-11-28
 *Anish:* Progress presentation.Tuned the proportional tuning for P-controller, scaling the speeds for controlled motion of the robot. Reconfigured colors for better object derection, especially balls. (2.5h)+
@@ -118,3 +120,21 @@
 
 === Monday 2022-12-12
 *Anish:* Solving issues with the Pull Requests for reviewing the codes: dynamic USB COM port search, state machine implementation, refereee commands. (2h)+
+
+*Georgs* Milled out the wheel connectors using a lathe (5h)+
+
+=== Tuesday 2022-11-29 
+*Georgs* Assembled an omniwheel using all of the needed parts, works great! (3h)+
+
+== Monday 2022-12-05
+*Georgs* Robot chassis design approved, fixed some last changes, ready for fabrication (4h)+
+
+== Tuesday 2022-12-07
+*Georgs* All parts which need to be printed have been printed (~8h printing time)
+
+== Friday 2022-12-09
+*Georgs* Robot chassis and everything milled out with the CNC (4h)+
+
+== Saturday 2022-12-10
+*Georgs* CNCd parts cleaned up, partial assembly. Need to migrate some components from the test robot to the new one (8h+)
+>>>>>>> 73095bfb929ac4462d035fdb161416a2abb43a7f
