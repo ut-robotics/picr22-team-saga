@@ -1,6 +1,5 @@
 import image_processor
 import camera
-import motion
 import cv2
 import time
 import api
@@ -60,7 +59,7 @@ def main_loop():
                 print(f"speed_x: {speed_x}")     
                 print(f"speed_y: {speed_y}")     
                       
-                api.move(speed_x, speed_y, -speed_x*1.5)
+                api.RobotMovement.move(speed_x, speed_y, -speed_x*1.5)
                 
             # print(largest)           
 
@@ -91,10 +90,10 @@ def main_loop():
                     api.move(0.5, 0.5, 0.5)
                     break
     except KeyboardInterrupt:
-        api.move(0.5, 0.5, 0.5)
+        api.RobotMovement.move(0.5, 0.5, 0.5)
         print("closing....")
     finally:
         cv2.destroyAllWindows()
         processor.stop()
-        api.close()
+        api.RobotMovement.close()
 main_loop()
