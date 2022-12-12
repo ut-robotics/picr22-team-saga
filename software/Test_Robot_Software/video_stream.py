@@ -21,7 +21,8 @@ def main():
             
             # has argument aligned_depth that enables depth frame to color frame alignment. Costs performance
             processed_data = processor.process_frame(aligned_depth=False)
-            largest = max(processed_data.balls, key = lambda ball: ball.size, default=None)
+            # largest = max(processed_data.balls, key = lambda ball: ball.size, default=None)
+            largest = processed_data.balls[-1]
             if(largest):
                 cv2.circle(processed_data.debug_frame,(largest.x, largest.y), 20, (255, 0, 255), -1)
                 
