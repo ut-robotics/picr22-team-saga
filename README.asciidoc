@@ -108,3 +108,15 @@
 
 === Tuesday 2022-11-29 
 *Georgs* Assembled an omniwheel using all of the needed parts, works great! (3h)+
+
+== Monday 2022-12-05
+*Georgs* Robot chassis design approved, fixed some last changes, ready for fabrication (4h)+
+
+== Tuesday 2022-12-07
+*Georgs* All parts which need to be printed have been printed (~8h printing time)
+
+== Friday 2022-12-09
+*Georgs* Robot chassis and everything milled out with the CNC (4h)+
+
+== Saturday 2022-12-10
+*Georgs* CNCd parts cleaned up, partial assembly. Need to migrate some components from the test robot to the new one (8h+)
