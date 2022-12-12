@@ -37,10 +37,6 @@ class RobotMovement:
         data = struct.pack('<hhhHBH', motors[0], motors[2], motors[1], 48, 0, 0xAAAA)
         self.ser.write(data)
         self.ser.read()    
-        
-    def close(self):
-        self.ser.close() 
-
 
     def move(self, x_speed, y_speed, rot_speed):
         
@@ -56,6 +52,9 @@ class RobotMovement:
         print(x_speed, y_speed, rot_speed)
         print(list(map(lambda x: int(x), speeds)))
         RobotMovement.sendMotorSpeed(list(map(lambda x: int(x), speeds)))    
+    
+    def close(self):
+        self.ser.close()
 
 
 if __name__ == "__main__":
