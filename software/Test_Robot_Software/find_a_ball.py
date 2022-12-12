@@ -28,8 +28,11 @@ def main_loop():
             if(largest):
                 cv2.circle(processedData.debug_frame,(largest.x, largest.y), 20, (255, 0, 255), -1)
                                 
-                scaled_pos_x = (largest.x - processedData.debug_frame.shape[1]/2) / (processedData.debug_frame.shape[1]/2) 
-                scaled_pos_y = (processedData.debug_frame.shape[0]/2 - largest.y) / (processedData.debug_frame.shape[0]/2)                
+                # scaled_pos_x = (largest.x - processedData.debug_frame.shape[1]/2) / (processedData.debug_frame.shape[1]/2) 
+                # scaled_pos_y = (processedData.debug_frame.shape[0]/2 - largest.y) / (processedData.debug_frame.shape[0]/2)                
+
+                scaled_pos_x = (largest.x - cam.rgb_width/2) / (cam.rgb_width/2) 
+                scaled_pos_y = (cam.rgb_height/2 - largest.y) / (cam.rgb_height/2)                
                               
 
                 if (scaled_pos_y < 0.0):
