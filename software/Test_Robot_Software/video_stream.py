@@ -20,10 +20,10 @@ def main():
         while True:
             
             # has argument aligned_depth that enables depth frame to color frame alignment. Costs performance
-            processedData = processor.process_frame(aligned_depth=False)
-            largest = max(processedData.balls, key = lambda ball: ball.size, default=None)
+            processed_data = processor.process_frame(aligned_depth=False)
+            largest = max(processed_data.balls, key = lambda ball: ball.size, default=None)
             if(largest):
-                cv2.circle(processedData.debug_frame,(largest.x, largest.y), 20, (255, 0, 255), -1)
+                cv2.circle(processed_data.debug_frame,(largest.x, largest.y), 20, (255, 0, 255), -1)
                 
             print(largest)
 
@@ -39,13 +39,13 @@ def main():
                 fps = 30 / (end - start)
                 start = end
                 print("FPS: {}, framecount: {}".format(fps, frame_cnt))
-                print("ball_count: {}".format(len(processedData.balls)))
+                print("ball_count: {}".format(len(processed_data.balls)))
 
                 #if (frame_cnt > 1000):
                 #    break
 
             if debug:
-                debug_frame = processedData.debug_frame
+                debug_frame = processed_data.debug_frame
 
                 cv2.imshow('debug', debug_frame)
 
