@@ -103,3 +103,18 @@
 
 === Wednesday 2022-11-23
 *Anish:* Programmed the software part for ball detectiona nd follow. Ran into the same problem of not so precise ball tracking. Detects the ball but the tracking algorithm fails. Need to change the scaling factor and might need to incorporate PID control as the movement in left and right motion is not symmetric. Tested the thrower and calibrated the thrower speed according to the distance. interpoaltion yet to be implemented. Here also lienar scaling performed, but not precise. Reconfigured all color confugurations again as theer were few problems while ball detection. (4.5h) +
+
+=== Monday 2022-11-28
+*Anish:* Progress presentation.Tuned the proportional tuning for P-controller, scaling the speeds for controlled motion of the robot. Reconfigured colors for better object derection, especially balls. (2.5h)+
+
+=== Thursday 2022-12-02
+*Anish:* Tested the ball detection and ball follow. Works good when the ball is near. But when the ball is on the other half of the court, the robot does not detect the ball. Very difficult to tune. Reconfigured colors to detect the ball multiple times. Rand into the same problem. (3h)+
+
+=== Monday 2022-12-5
+*Anish:* Continued with ball following. Slight progress in the ball following, but the same problem of not detecting when the ball is farther away. (2h)+
+
+=== Thursday 2022-12-8
+*Anish:* Tried implementing the state machine logic and responding to referee commands. (1.5h)+
+
+=== Monday 2022-12-12
+*Anish:* Solving issues with the Pull Requests for reviewing the codes: dynamic USB COM port search, state machine implementation, refereee commands. (2h)+
