@@ -23,13 +23,13 @@ def main_loop():
         while True:
             
             # has argument aligned_depth that enables depth frame to color frame alignment. Costs performance
-            processedData = processor.process_frame(aligned_depth=False)
-            largest = max(processedData.balls, key = lambda ball: ball.size, default=None)
+            processed_data = processor.process_frame(aligned_depth=False)
+            largest = max(processed_data.balls, key = lambda ball: ball.size, default=None)
             if(largest):
-                cv2.circle(processedData.debug_frame,(largest.x, largest.y), 20, (255, 0, 255), -1)
+                cv2.circle(processed_data.debug_frame,(largest.x, largest.y), 20, (255, 0, 255), -1)
                                 
-                # scaled_pos_x = (largest.x - processedData.debug_frame.shape[1]/2) / (processedData.debug_frame.shape[1]/2) 
-                # scaled_pos_y = (processedData.debug_frame.shape[0]/2 - largest.y) / (processedData.debug_frame.shape[0]/2)                
+                # scaled_pos_x = (largest.x - processed_data.debug_frame.shape[1]/2) / (processed_data.debug_frame.shape[1]/2) 
+                # scaled_pos_y = (processed_data.debug_frame.shape[0]/2 - largest.y) / (processed_data.debug_frame.shape[0]/2)                
 
                 scaled_pos_x = (largest.x - cam.rgb_width/2) / (cam.rgb_width/2) 
                 scaled_pos_y = (cam.rgb_height/2 - largest.y) / (cam.rgb_height/2)                
@@ -57,7 +57,8 @@ def main_loop():
                 else:
                     pass
 
-                print(f"Frame Size: ({processedData.debug_frame.shape[1]}, {processedData.debug_frame.shape[0]})")
+                # print(f"Frame Size: ({processed_data.debug_frame.shape[1]}, {processed_data.debug_frame.shape[0]})")
+                print(f"Frame Size: ({cam.rgb_width}, {cam.rgb_height})")
                 print(f"scaled position: ({scaled_pos_x},{scaled_pos_y})")
                 print(f"speed_x: {speed_x}")     
                 print(f"speed_y: {speed_y}")     
@@ -78,13 +79,13 @@ def main_loop():
                 fps = 30 / (end - start)
                 start = end
                 print("FPS: {}, framecount: {}".format(fps, frame_cnt))
-                print("ball_count: {}".format(len(processedData.balls)))
+                print("ball_count: {}".format(len(processed_data.balls)))
 
                 #if (frame_cnt > 1000):
                 #    break
 
             if debug:
-                debug_frame = processedData.debug_frame
+                debug_frame = processed_data.debug_frame
 
                 cv2.imshow('debug', debug_frame)
 
