@@ -1,20 +1,22 @@
 import api
 import time
+import robot_state
 
 def main():
     try:
         while True:
-            api.move(0, 12, 0)       
-            print("Moving ..")
+            if (robot_state.StateMachine.current_state == robot_state.State.MANUAL):            
+                api.RobotMovement.move(0, 12, 0)       
+                print("Moving ..")
 
     except KeyboardInterrupt:
         print("Keyboard Interrupt ..")
-        api.move(0.5, 0.5, 0.5)
+        api.RobotMovement.move(0.5, 0.5, 0.5)
         print("Keyboard Interrupt ...")
-        print("Clsoing ...")
+        print("Closing ...")
     
     finally:
-        api.close()
+        api.RobotMovement.close()
 
 if __name__ == "__main__":
     main()
