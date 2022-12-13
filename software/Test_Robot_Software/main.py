@@ -18,13 +18,15 @@ class Main:
         self.debug = True
         self.cam = RealsenseCamera(exposure=100)
         self.processor = ImageProcessor(self.cam, debug=self.debug)
-        self.processor.start()        
-
-        self.robot_movement = RobotMovement()
-        self.state_machine = StateMachine(self.robot_movement)
+        self.processor.start()    
         
         self.FRAME_WIDTH = self.cam.rgb_width
         self.FRAME_HEIGHT = self.cam.rgb_height
+
+        self.robot_movement = RobotMovement()
+        self.state_machine = StateMachine(self.robot_movement, self.FRAME_WIDTH, self.FRAME_HEIGHT )
+        
+        
         
 
 if __name__ == "__main__":
@@ -39,7 +41,7 @@ if __name__ == "__main__":
         while True:
             processed_data = main.processor.process_frame(aligned_depth=False) 
             if processed_data:
-                main.current_state = main.state_machine.run_current_state(processed_data=processed_data, frame_width=main.FRAME_WIDTH, frame_height=main.FRAME_HEIGHT)          
+                main.current_state = main.state_machine.run_current_state(processed_data=processed_data)          
             
             # if processed_data.balls:
             #     largest = processed_data.balls[-1] 
