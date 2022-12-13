@@ -23,6 +23,9 @@ class Main:
         self.robot_movement = RobotMovement()
         self.state_machine = StateMachine(self.robot_movement)
         
+        self.FRAME_WIDTH = self.cam.rgb_width
+        self.FRAME_HEIGHT = self.cam.rgb_height
+        
 
 if __name__ == "__main__":
     main = Main(robot_movement=RobotMovement())
@@ -36,7 +39,7 @@ if __name__ == "__main__":
         while True:
             processed_data = main.processor.process_frame(aligned_depth=False) 
             if processed_data:
-                main.current_state = main.state_machine.run_current_state(processed_data=processed_data)          
+                main.current_state = main.state_machine.run_current_state(processed_data=processed_data, frame_width=main.FRAME_WIDTH, frame_height=main.FRAME_HEIGHT)          
             
             # if processed_data.balls:
             #     largest = processed_data.balls[-1] 
