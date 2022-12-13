@@ -12,6 +12,9 @@ class StateMachine:
         self.state = State.FIND_A_BALL
         self.counter = 0
 
+        self.max_speed_x = 10
+        self.max_speed_y = 30
+
     def run_current_state(self, ball_x, ball_y):
 
         if self.state == State.FIND_A_BALL:
@@ -31,24 +34,27 @@ class StateMachine:
         
         if ball_x is None:
             self.state = State.FIND_A_BALL
-        else:
-        
-            max_speed_x = 10
-            max_speed_y = 30
+        else:                    
             
-            speed_x = ball_x * 18
-            if (speed_x > max_speed_x):
-                speed_x = max_speed_x
-            if (speed_x < -max_speed_x):
-                speed_x = -max_speed_x
+            speed_x = (ball_x - 0.225) * 16.0
+
+            if (speed_x > self.max_speed_x):
+                speed_x = self.max_speed_x
+            if (speed_x < -self.max_speed_x):
+                speed_x = -self.max_speed_x
             
             if (ball_y < -0.4):
-                ball_y = 0.0
-            speed_y = (ball_y + 0.4) * 60
-            if (speed_y > max_speed_y):
-                speed_y = max_speed_y
+                speed_y = 0.0
+                
+            else:                    
+                speed_y = (ball_y + 0.4)  * 60.0 
             
-            rot_speed = -speed_x * 1.5
+            if (speed_y > self.max_speed_y):
+                speed_y = self.max_speed_y
+            else:
+                pass
+            
+            rot_speed = -speed_x * 1.25
             
             self.robot_movement.move(speed_x, speed_y, rot_speed)
         
