@@ -16,11 +16,6 @@ class StateMachine:
         self.max_speed_x = 10
         self.max_speed_y = 40
 
-        self.FRAME_WIDTH = 848
-        self.FRAME_HEIGHT = 480
-
-
-
     # def run_current_state(self, ball_x, ball_y):
         
     #     if self.state == State.FIND_A_BALL:
@@ -29,15 +24,15 @@ class StateMachine:
     #     elif self.state == State.FOLLOW_A_BALL:
     #         self.follow_a_ball(ball_x, ball_y)
 
-    def run_current_state(self, processed_data):
+    def run_current_state(self, processed_data, frame_width, frame_height):
 
         if processed_data.balls:
             print("ball exists")
             largest = processed_data.balls[-1] 
             cv2.circle(processed_data.debug_frame, (largest.x, largest.y), 20, (255, 0, 255), -1)                
 
-            ball_x = (largest.x - self.FRAME_WIDTH/2) / (self.FRAME_WIDTH/2) 
-            ball_y = (self.FRAME_HEIGHT/2 - largest.y) / (self.FRAME_HEIGHT/2)
+            ball_x = (largest.x - frame_width/2) / (frame_width/2) 
+            ball_y = (frame_height/2 - largest.y) / (frame_height/2)
             print(ball_x, ball_y)
 
             if self.state == State.FIND_A_BALL:
