@@ -22,12 +22,11 @@ class Main:
 
         self.robot_movement = RobotMovement()
         self.state_machine = StateMachine(self.robot_movement)
-        self.current_state = State.FIND_A_BALL
-        self.run = True
+        
 
 if __name__ == "__main__":
     main = Main(robot_movement=RobotMovement())
-
+# 
     start = time()
     fps = 0
     frame = 0
@@ -39,27 +38,21 @@ if __name__ == "__main__":
             
             if processed_data.balls:
                 largest = processed_data.balls[-1] 
-                cv2.circle(processed_data.debug_frame, (largest.x, largest.y), 20, (255, 0, 255), -1)
-                # ball_x = largest.x
-                # ball_y = largest.y
+                cv2.circle(processed_data.debug_frame, (largest.x, largest.y), 20, (255, 0, 255), -1)                
 
                 ball_x = (largest.x - main.cam.rgb_width/2) / (main.cam.rgb_width/2) 
                 ball_y = (main.cam.rgb_height/2 - largest.y) / (main.cam.rgb_height/2)
                 print(ball_x, ball_y)
             
-                if main.run:
-                    main.current_state = main.state_machine.run_current_state(ball_x=ball_x, ball_y=ball_y)
+                main.current_state = main.state_machine.run_current_state(ball_x=ball_x, ball_y=ball_y)
             
             else:
-                main.robot_movement.move(0, 0, -8)
+                # main.robot_movement.move(0, 0, -8)
+                main.state_machine.turn(-8)
 
-            # print(largest)            
-
-            if main.run:
-                main.current_state = main.state_machine.run_current_state
+            # print(largest)
 
             frame_cnt +=1
-
             frame += 1
             if frame % 30 == 0:
                 frame = 0
@@ -68,9 +61,6 @@ if __name__ == "__main__":
                 start = end
                 print("FPS: {}, framecount: {}".format(fps, frame_cnt))
                 print("ball_count: {}".format(len(processed_data.balls)))
-
-                #if (frame_cnt > 1000):
-                #    break
 
             if main.debug:
                 debug_frame = processed_data.debug_frame
