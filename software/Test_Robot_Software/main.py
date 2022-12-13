@@ -24,8 +24,7 @@ class Main:
         self.FRAME_HEIGHT = self.cam.rgb_height
 
         self.robot_movement = RobotMovement()
-        self.state_machine = StateMachine(self.robot_movement, self.FRAME_WIDTH, self.FRAME_HEIGHT )
-        
+        self.state_machine = StateMachine(self.robot_movement, self.FRAME_WIDTH, self.FRAME_HEIGHT)       
         
         
 

@@ -44,6 +44,7 @@ class StateMachine:
                 self.follow_a_ball(ball_x=ball_x, ball_y=ball_y)
         
         else:
+
             self.robot_movement.move(0, 0, -8)
             
     def find_a_ball(self, ball_x):
