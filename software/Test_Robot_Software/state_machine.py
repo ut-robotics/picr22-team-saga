@@ -10,13 +10,12 @@ class StateMachine:
     def __init__(self, robot_movement):
         self.robot_movement = robot_movement
         self.state = State.FIND_A_BALL
-        self.counter = 0
-
+        
         self.max_speed_x = 10
         self.max_speed_y = 30
 
     def run_current_state(self, ball_x, ball_y):
-
+        
         if self.state == State.FIND_A_BALL:
             self.find_a_ball(ball_x)
         
@@ -57,6 +56,10 @@ class StateMachine:
             rot_speed = -speed_x * 1.25
             
             self.robot_movement.move(speed_x, speed_y, rot_speed)
+
+    def turn(self, rot_speed):
+        self.robot_movement.move(0, 0, rot_speed)    
+    
         
 if __name__ == "__main__":
     state_machine = StateMachine()
