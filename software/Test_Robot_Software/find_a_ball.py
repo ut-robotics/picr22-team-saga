@@ -28,7 +28,7 @@ def main_loop():
             largest = processed_data.balls[-1]
             if(largest):
                 cv2.circle(processed_data.debug_frame,(largest.x, largest.y), 20, (255, 0, 255), -1)
-                                
+                                                
                 # scaled_pos_x = (largest.x - processed_data.debug_frame.shape[1]/2) / (processed_data.debug_frame.shape[1]/2) 
                 # scaled_pos_y = (processed_data.debug_frame.shape[0]/2 - largest.y) / (processed_data.debug_frame.shape[0]/2)                
 
