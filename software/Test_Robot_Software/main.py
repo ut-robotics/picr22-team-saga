@@ -34,21 +34,23 @@ if __name__ == "__main__":
 
     try:
         while True:
-            processed_data = main.processor.process_frame(aligned_depth=False)           
+            processed_data = main.processor.process_frame(aligned_depth=False) 
+            if processed_data:
+                main.current_state = main.state_machine.run_current_state(processed_data=processed_data)          
             
-            if processed_data.balls:
-                largest = processed_data.balls[-1] 
-                cv2.circle(processed_data.debug_frame, (largest.x, largest.y), 20, (255, 0, 255), -1)                
+            # if processed_data.balls:
+            #     largest = processed_data.balls[-1] 
+            #     cv2.circle(processed_data.debug_frame, (largest.x, largest.y), 20, (255, 0, 255), -1)                
 
-                ball_x = (largest.x - main.cam.rgb_width/2) / (main.cam.rgb_width/2) 
-                ball_y = (main.cam.rgb_height/2 - largest.y) / (main.cam.rgb_height/2)
-                print(ball_x, ball_y)
+            #     ball_x = (largest.x - main.cam.rgb_width/2) / (main.cam.rgb_width/2) 
+            #     ball_y = (main.cam.rgb_height/2 - largest.y) / (main.cam.rgb_height/2)
+            #     print(ball_x, ball_y)
             
-                main.current_state = main.state_machine.run_current_state(ball_x=ball_x, ball_y=ball_y)
-            
-            else:
-                # main.robot_movement.move(0, 0, -8)
-                main.state_machine.turn(-8)
+            #     main.current_state = main.state_machine.run_current_state(ball_x=ball_x, ball_y=ball_y)
+                
+            # else:
+            #     # main.robot_movement.move(0, 0, -8)
+            #     main.state_machine.turn(-8)
 
             # print(largest)
 
