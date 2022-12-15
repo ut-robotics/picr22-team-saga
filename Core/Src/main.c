@@ -40,7 +40,7 @@
 #define TROTTLE_MAX 500  // trotle max
 #define TROTTLE_MIN 48   // trotle min
 
-#define DSHOT_FRAME_SIZE 18 + 10
+#define DSHOT_FRAME_SIZE (18 + 10)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -103,11 +103,10 @@ uint8_t armed = 0;           // arming sequence ended
 
 uint32_t motor[DSHOT_FRAME_SIZE];// duty cycles array
 volatile uint16_t DT = 0;
-volatile int8_t motorSpeeds[3];
 volatile int8_t motor_new = 0;
 extern USBD_HandleTypeDef hUsbDeviceFS;
 struct Data {
-    char A, B, C, D;
+    uint8_t A, B, C, D;
 };
 /* USER CODE END PV */
 
@@ -124,40 +123,47 @@ static void MX_TIM8_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM15_Init(void);
 /* USER CODE BEGIN PFP */
+uint8_t max(uint8_t a, uint8_t b);
+uint8_t min(uint8_t a, uint8_t b);
 void dshot600(uint32_t *motor, uint16_t value);
 uint16_t prepareDshotPacket(const uint16_t value);
+
+struct Data d1 = {1, 'A', 'R', 'T'};
+
+float last_error[3], error[3], integral[3], derevative[3];
+float Kp=110.f, Ki=0.1f, Kd=0.001f;//TODO: tune coefficients
+
+volatile int8_t motorSpeeds[3];
+
+uint16_t dc[3];
 int16_t enc_val_prev[3];
-struct Data d1 = {1, 9, 3, 0};
-
-float required_speed = 4 ;
-float last_error, error, integral, derevative;
-float Kp=110, Ki=0.1, Kd=0.001;
-
+float rps_s[3];
+uint16_t control[3];
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (htim == &htim1) {
+    if (htim == &htim6) {
+        uint16_t counts_now[3] = {((TIM1->CNT)>>2), ((TIM2->CNT)>>2), ((TIM3->CNT)>>2)};
+        for(char i = 0; i < 3; i++) {
+            dc[i] = counts_now[i] - enc_val_prev[i];
+            enc_val_prev[i] = counts_now[i];
 
-        uint16_t counts_now = ((TIM3->CNT)>>2);
-        uint16_t dc = counts_now - enc_val_prev[0];
-        enc_val_prev[0] = counts_now;
+            rps_s[i] = ((float) dc[i] / 24.f) * 10;
+            d1.B = (uint8_t)rps_s[i] * 100;
 
-        float rps = ((float )dc/24.f)*10;
-        d1.B=rps*100;
+            error[i] = (float )motorSpeeds[i] - rps_s[i];
+            integral[i] = integral[i] + error[i];
+            derevative[i] = error[i] - last_error[i];
+            last_error[i] = error[i];
+            control[i] = (uint16_t)((Kp * error[i]) + (Ki * integral[i]) + (Kd * derevative[i]));
 
+            d1.C = control[i];
 
+            USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &d1, sizeof(struct Data));
+        }
 
-        error = required_speed - rps;
-        integral = integral+error;
-        derevative = error-last_error;
-        last_error = error;
-        uint16_t control = (Kp * error) + (Ki * integral) + (Kd * derevative);
-        TIM1->CCR1 = control>100?100:control;
-
-        d1.C = control;
-
-        USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &d1, sizeof(struct Data));
-
-        if (rps > 0.5f)
-            HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_8);
+        //TODO: Not sure about motor order can be changed
+        TIM4->CCR3  = min(100, control[0]);//motorSpeeds[0] > 0 ? motorSpeeds[0] : -motorSpeeds[0];
+        TIM16->CCR1 = min(100, control[1]);//motorSpeeds[1] > 0 ? motorSpeeds[1] : -motorSpeeds[1];
+        TIM1->CCR3  = min(100, control[2]);//motorSpeeds[2] > 0 ? motorSpeeds[2] : -motorSpeeds[2];
     }
 }
 /* USER CODE END PFP */
@@ -247,17 +253,12 @@ int main(void)
     HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
     HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim16, TIM_CHANNEL_1);
-    TIM4->CCR3 = 20;
-    TIM4->CCR1 = 50;
-    TIM16->CCR1 = 50;
+    TIM4->CCR3  = 0;
+    TIM4->CCR1  = 0;
+    TIM16->CCR1 = 0;
 
-    HAL_Delay(100);
-    HAL_GPIO_WritePin(nSleep_GPIO_Port, nSleep_Pin, 0);
-    DWT_Delay_us(30);
-    HAL_GPIO_WritePin(nSleep_GPIO_Port, nSleep_Pin, 1);
-    HAL_Delay(100);
-
-
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "EndlessLoop"
     while (1) {
 
         //call();
@@ -284,9 +285,6 @@ int main(void)
         if(motor_new){
             USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data, sizeof(struct Data));
             motor_new = 0;
-            TIM4->CCR3 = motorSpeeds[0] > 0 ? motorSpeeds[0] : -motorSpeeds[0];
-            TIM16->CCR1 = motorSpeeds[1] > 0 ? motorSpeeds[1] : -motorSpeeds[1];
-            TIM1->CCR3 = motorSpeeds[2] > 0 ? motorSpeeds[2] : -motorSpeeds[2];
             HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, motorSpeeds[0]>0);
             HAL_GPIO_WritePin(M2_DIR_GPIO_Port, M2_DIR_Pin, motorSpeeds[1]>0);
             HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, motorSpeeds[2]>0);
@@ -302,6 +300,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     }
+#pragma clang diagnostic pop
   /* USER CODE END 3 */
 }
 
@@ -371,13 +370,13 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 80-1;
+  htim1.Init.Prescaler = 0;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 100;
+  htim1.Init.Period = 65535;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
@@ -427,7 +426,7 @@ static void MX_TIM2_Init(void)
   htim2.Init.Period = 4.294967295E9;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
@@ -476,7 +475,7 @@ static void MX_TIM3_Init(void)
   htim3.Init.Period = 65535;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  sConfig.EncoderMode = TIM_ENCODERMODE_TI1;
+  sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
   sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
   sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
@@ -900,6 +899,12 @@ uint16_t prepareDshotPacket(const uint16_t value) {
     packet = (packet << 4) | csum;
 
     return packet;
+}
+uint8_t max(uint8_t a, uint8_t b) {
+    return a > b ? a : b;
+}
+uint8_t min(uint8_t a, uint8_t b) {
+    return a < b ? a : b;
 }
 /* USER CODE END 4 */
 
