@@ -234,7 +234,6 @@ int main(void)
     HAL_TIM_PWM_Start_DMA(&htim15, TIM_CHANNEL_1, motor, DSHOT_FRAME_SIZE);
     HAL_Delay(2000);
     dshot600(motor, 100);
-    HAL_TIM_PWM_Start_DMA(&htim15, TIM_CHANNEL_1, motor, DSHOT_FRAME_SIZE);
     HAL_Delay(1000);
     //        for(int i = 1024; i<2048; i++) {
     //            dshot600(motor, i);
