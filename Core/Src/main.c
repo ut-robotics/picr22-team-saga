@@ -106,7 +106,11 @@ volatile uint16_t DT = 0;
 volatile int8_t motor_new = 0;
 extern USBD_HandleTypeDef hUsbDeviceFS;
 struct Data {
-    uint8_t A, B, C, D;
+    int8_t A, B, C, D;
+};
+struct DataA {
+    int8_t addr;
+    int32_t A, B, C;
 };
 /* USER CODE END PV */
 
@@ -123,48 +127,53 @@ static void MX_TIM8_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM15_Init(void);
 /* USER CODE BEGIN PFP */
-uint8_t max(uint8_t a, uint8_t b);
-uint8_t min(uint8_t a, uint8_t b);
+int32_t max(int32_t a, int32_t b);
+int32_t min(int32_t a, int32_t b);
+int32_t clamp(int32_t max, int32_t min, int32_t val);
 void dshot600(uint32_t *motor, uint16_t value);
+
 uint16_t prepareDshotPacket(const uint16_t value);
 
-struct Data d1 = {1, 'A', 'R', 'T'};
+struct DataA d1 = {2};
 
-float last_error[3], error[3], integral[3], derevative[3];
-float Kp=10000.f, Ki=0.0001f, Kd=0.f;//TODO: tune coefficients
+int last_error[3], error[3], integral[3], derevative[3];
+int Kp=4000, Ki=100, Kd=0;//TODO: tune coefficients
 
 volatile int8_t motorSpeeds[3];
 
-uint16_t dc[3];
+int32_t dc[3];
 int16_t enc_val_prev[3];
-float rps_s[3];
-uint16_t control[3];
+//float rps_s[3];
+int32_t control[3];
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if(htim == &htim6) {
-        uint16_t counts_now[3] = {((TIM2->CNT)>>2), ((TIM1->CNT)>>2), ((TIM3->CNT)>>2)};
+        int16_t counts_now[3] = {TIM3->CNT, TIM1->CNT, TIM2->CNT};
         for(char i = 0; i < 3; i++) {
             dc[i] = counts_now[i] - enc_val_prev[i];
             enc_val_prev[i] = counts_now[i];
-
-            rps_s[i] = ((float) dc[i] / 120.f) * 5.3f;
-            d1.B = (uint8_t)(dc[0] << 8);
-            d1.C = (uint8_t)(dc[0]  & 0xFF);
-
-            error[i] = (float )motorSpeeds[i] - rps_s[i];
-            integral[i] = integral[i] + error[i] * 0.001;
+            int t = ((int)motorSpeeds[i]);
+            error[i] = t - dc[i];
+            integral[i] = clamp(65535/Ki, -65535/Ki, integral[i] + error[i]);
             derevative[i] = error[i] - last_error[i];
             last_error[i] = error[i];
-            control[i] = (uint16_t)((Kp * error[i]) + (Ki * integral[i]) + (Kd * derevative[i]));
+            control[i] = ((Kp * error[i]) + (Ki * integral[i]) + (Kd * derevative[i]));
 
-            d1.D = control[i];
+            control[i] = clamp(65535, -65535, control[i]);
 
-            USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &d1, sizeof(struct Data));
         }
+        d1.A = dc[0];
+        d1.B = (int)motorSpeeds[0];
+        d1.C = error[0];
+        USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &d1, sizeof(struct DataA));
 
         //TODO: Not sure about motor order can be changed
-        TIM4->CCR3  = min(100, control[0]);//motorSpeeds[0] > 0 ? motorSpeeds[0] : -motorSpeeds[0];
-        TIM4->CCR1 = min(100, control[1]);//motorSpeeds[1] > 0 ? motorSpeeds[1] : -motorSpeeds[1];
-        TIM16->CCR1  = min(100, control[2]);//motorSpeeds[2] > 0 ? motorSpeeds[2] : -motorSpeeds[2];
+        TIM4->CCR3  =  abs(control[0]);//motorSpeeds[0] > 0 ? motorSpeeds[0] : -motorSpeeds[0];
+        TIM4->CCR1 =   abs(control[1]);//motorSpeeds[1] > 0 ? motorSpeeds[1] : -motorSpeeds[1];
+        TIM16->CCR1  = abs(control[2]);//motorSpeeds[2] > 0 ? motorSpeeds[2] : -motorSpeeds[2];
+
+        HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, control[0]<0);
+        HAL_GPIO_WritePin(M2_DIR_GPIO_Port, M2_DIR_Pin, control[1]<0);
+        HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, control[2]<0);
     }
 }
 /* USER CODE END PFP */
@@ -272,29 +281,21 @@ int main(void)
 
 
         struct Data data = {1, motorSpeeds[0], motorSpeeds[1], motorSpeeds[2]};
-        struct Data data1 = {2, DT, DT >> 8, 8};
+        //struct Data data1 = {2, DT, DT >> 8, 8};
 
         //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data, 4);
         if (DT != 0) {
-            USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data1, sizeof(struct Data));
+            //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data1, sizeof(struct Data));
             dshot600(motor, DT);
             HAL_TIM_PWM_Start_DMA(&htim15, TIM_CHANNEL_1, motor, DSHOT_FRAME_SIZE);
             DT = 0;
             HAL_Delay(100);
             struct Data data2 = {2, DT, DT >> 8, 8};
-            USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data2, sizeof(struct Data));
+            //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data2, sizeof(struct Data));
         }
         if(motor_new){
-            USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data, sizeof(struct Data));
+            //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data, sizeof(struct Data));
             motor_new = 0;
-            HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, motorSpeeds[0]>0);
-            HAL_GPIO_WritePin(M2_DIR_GPIO_Port, M2_DIR_Pin, motorSpeeds[1]>0);
-            HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, motorSpeeds[2]>0);
-
-
-            TIM4->CCR3 = motorSpeeds[0] > 0 ? motorSpeeds[0] : -motorSpeeds[0];
-            TIM4->CCR1  = motorSpeeds[1] > 0 ? motorSpeeds[1] : -motorSpeeds[1];
-            TIM16->CCR1  = motorSpeeds[2] > 0 ? motorSpeeds[2] : -motorSpeeds[2];
             HAL_GPIO_WritePin(nSleep_GPIO_Port, nSleep_Pin, 0);
             DWT_Delay_us(30);
             HAL_GPIO_WritePin(nSleep_GPIO_Port, nSleep_Pin, 1);
@@ -429,7 +430,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 4.294967295E9;
+  htim2.Init.Period = 65535;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
@@ -525,9 +526,9 @@ static void MX_TIM4_Init(void)
 
   /* USER CODE END TIM4_Init 1 */
   htim4.Instance = TIM4;
-  htim4.Init.Prescaler = 100-1;
+  htim4.Init.Prescaler = 0;
   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim4.Init.Period = 100;
+  htim4.Init.Period = 65535;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_PWM_Init(&htim4) != HAL_OK)
@@ -577,9 +578,9 @@ static void MX_TIM6_Init(void)
 
   /* USER CODE END TIM6_Init 1 */
   htim6.Instance = TIM6;
-  htim6.Init.Prescaler = 1600-1;
+  htim6.Init.Prescaler = 8000-1;
   htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim6.Init.Period = 100;
+  htim6.Init.Period = 99;
   htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
   {
@@ -754,9 +755,9 @@ static void MX_TIM16_Init(void)
 
   /* USER CODE END TIM16_Init 1 */
   htim16.Instance = TIM16;
-  htim16.Init.Prescaler = 100-1;
+  htim16.Init.Prescaler = 0;
   htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim16.Init.Period = 100;
+  htim16.Init.Period = 65535;
   htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim16.Init.RepetitionCounter = 0;
   htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -906,11 +907,20 @@ uint16_t prepareDshotPacket(const uint16_t value) {
 
     return packet;
 }
-uint8_t max(uint8_t a, uint8_t b) {
+int32_t max(int32_t a, int32_t b){
     return a > b ? a : b;
 }
-uint8_t min(uint8_t a, uint8_t b) {
+int32_t min(int32_t a, int32_t b) {
     return a < b ? a : b;
+}
+int32_t clamp(int32_t max, int32_t min, int32_t val) {
+    if (val>max){
+        return max;
+    }else if (val < min){
+        return min;
+    } else {
+        return val;
+    }
 }
 /* USER CODE END 4 */
 
