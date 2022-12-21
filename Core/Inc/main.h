@@ -32,6 +32,9 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usbd_customhid.h"
+#include "dshot.h"
+#include "usb_device.h"
+#include "utils.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

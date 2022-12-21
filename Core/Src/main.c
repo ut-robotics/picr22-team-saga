@@ -18,33 +18,105 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "PID.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+#ifdef DEBUG
+struct Data {
+    int8_t A, B, C, D;
+};
+struct DataA {
+    int8_t addr;
+    int32_t A, B, C;
+};
+#endif
 
+typedef struct MotorTypeDef{
+    TIM_HandleTypeDef* timer;
+    TIM_HandleTypeDef* encoder;
+    int32_t timerChanel;
+    int32_t dirPin;
+} Motor;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define MOTOR_BIT_0 33
-#define MOTOR_BIT_1 77
-#define MOTOR_BITLENGTH 20
 
-#define ESC_POWER_UP 3000// wait 3s before arming sequence
-#define TROTTLE_MAX 500  // trotle max
-#define TROTTLE_MIN 48   // trotle min
-
-#define DSHOT_FRAME_SIZE (18 + 10)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim4;
+TIM_HandleTypeDef htim6;
+TIM_HandleTypeDef htim8;
+TIM_HandleTypeDef htim15;
+TIM_HandleTypeDef htim16;
+DMA_HandleTypeDef hdma_tim15_ch1;
+
+/* USER CODE BEGIN PV */
+volatile uint16_t DT = 0;
+volatile int8_t motor_new = 0;
+volatile int8_t motorSpeeds[3];
+
+extern USBD_HandleTypeDef hUsbDeviceFS;
+
+PIDConfig config = {4000, 100, 0, -UINT16_MAX, UINT16_MAX};
+PIDState states[3] = {{.config=&config}, {.config=&config}, {.config=&config}};
+
+uint32_t motor[DSHOT_FRAME_SIZE];// duty cycles array
+Motor motors[3] = {
+        {&htim4,  &htim3, TIM_CHANNEL_3, M1_DIR_Pin},
+        {&htim4,  &htim1, TIM_CHANNEL_1, M2_DIR_Pin},
+        {&htim16, &htim2, TIM_CHANNEL_1, M3_DIR_Pin}
+};
+
+int32_t dc[3];
+int16_t enc_val_prev[3];
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
+static void MX_TIM1_Init(void);
+static void MX_TIM2_Init(void);
+static void MX_TIM16_Init(void);
+static void MX_TIM3_Init(void);
+static void MX_TIM4_Init(void);
+static void MX_TIM8_Init(void);
+static void MX_TIM6_Init(void);
+static void MX_TIM15_Init(void);
+/* USER CODE BEGIN PFP */
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+    if(htim == &htim6) {
+        //int16_t counts_now[3] = {TIM3->CNT, TIM1->CNT, TIM2->CNT};
+        for(char i = 0; i < 3; i++) {
+            //htim1.Instance->CNT
+            int16_t counts_now = (int16_t)motors[i].encoder->Instance->CNT;
+            dc[i] = counts_now - enc_val_prev[i];
+            enc_val_prev[i] = counts_now;
+            updatePIDState(&states[i], dc[i], motorSpeeds[i]);
+
+            int32_t control = calculateOutput(&states[i]);
+
+            __HAL_TIM_SET_COMPARE(motors[i].timer, motors[i].timerChanel, abs(control));
+            HAL_GPIO_WritePin(GPIOB, motors[i].dirPin,control<0);
+        }
+    }
+}
 uint32_t DWT_Delay_Init(void)
 {
     /* Disable TRC */
@@ -81,100 +153,6 @@ __STATIC_INLINE void DWT_Delay_us(volatile uint32_t au32_microseconds)
     uint32_t au32_ticks = (HAL_RCC_GetHCLKFreq() / 1000000);
     au32_microseconds *= au32_ticks;
     while ((DWT->CYCCNT - au32_initial_ticks) < au32_microseconds-au32_ticks);
-}
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-TIM_HandleTypeDef htim1;
-TIM_HandleTypeDef htim2;
-TIM_HandleTypeDef htim3;
-TIM_HandleTypeDef htim4;
-TIM_HandleTypeDef htim6;
-TIM_HandleTypeDef htim8;
-TIM_HandleTypeDef htim15;
-TIM_HandleTypeDef htim16;
-DMA_HandleTypeDef hdma_tim15_ch1;
-
-/* USER CODE BEGIN PV */
-uint16_t value = TROTTLE_MIN;// throttle value to be sent
-uint16_t ctr = 0;            // arming sequence counter
-uint8_t trottle_down = 0;    // dunnot change trottle up.
-uint8_t armed = 0;           // arming sequence ended
-
-uint32_t motor[DSHOT_FRAME_SIZE];// duty cycles array
-volatile uint16_t DT = 0;
-volatile int8_t motor_new = 0;
-extern USBD_HandleTypeDef hUsbDeviceFS;
-struct Data {
-    int8_t A, B, C, D;
-};
-struct DataA {
-    int8_t addr;
-    int32_t A, B, C;
-};
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_DMA_Init(void);
-static void MX_TIM1_Init(void);
-static void MX_TIM2_Init(void);
-static void MX_TIM16_Init(void);
-static void MX_TIM3_Init(void);
-static void MX_TIM4_Init(void);
-static void MX_TIM8_Init(void);
-static void MX_TIM6_Init(void);
-static void MX_TIM15_Init(void);
-/* USER CODE BEGIN PFP */
-int32_t max(int32_t a, int32_t b);
-int32_t min(int32_t a, int32_t b);
-int32_t clamp(int32_t max, int32_t min, int32_t val);
-void dshot600(uint32_t *motor, uint16_t value);
-
-uint16_t prepareDshotPacket(const uint16_t value);
-
-struct DataA d1 = {2};
-
-int last_error[3], error[3], integral[3], derevative[3];
-int Kp=4000, Ki=100, Kd=0;//TODO: tune coefficients
-
-volatile int8_t motorSpeeds[3];
-
-int32_t dc[3];
-int16_t enc_val_prev[3];
-//float rps_s[3];
-int32_t control[3];
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if(htim == &htim6) {
-        int16_t counts_now[3] = {TIM3->CNT, TIM1->CNT, TIM2->CNT};
-        for(char i = 0; i < 3; i++) {
-            dc[i] = counts_now[i] - enc_val_prev[i];
-            enc_val_prev[i] = counts_now[i];
-            int t = ((int)motorSpeeds[i]);
-            error[i] = t - dc[i];
-            integral[i] = clamp(65535/Ki, -65535/Ki, integral[i] + error[i]);
-            derevative[i] = error[i] - last_error[i];
-            last_error[i] = error[i];
-            control[i] = ((Kp * error[i]) + (Ki * integral[i]) + (Kd * derevative[i]));
-
-            control[i] = clamp(65535, -65535, control[i]);
-
-        }
-        d1.A = dc[0];
-        d1.B = (int)motorSpeeds[0];
-        d1.C = error[0];
-        USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &d1, sizeof(struct DataA));
-
-        //TODO: Not sure about motor order can be changed
-        TIM4->CCR3  =  abs(control[0]);//motorSpeeds[0] > 0 ? motorSpeeds[0] : -motorSpeeds[0];
-        TIM4->CCR1 =   abs(control[1]);//motorSpeeds[1] > 0 ? motorSpeeds[1] : -motorSpeeds[1];
-        TIM16->CCR1  = abs(control[2]);//motorSpeeds[2] > 0 ? motorSpeeds[2] : -motorSpeeds[2];
-
-        HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, control[0]<0);
-        HAL_GPIO_WritePin(M2_DIR_GPIO_Port, M2_DIR_Pin, control[1]<0);
-        HAL_GPIO_WritePin(M3_DIR_GPIO_Port, M3_DIR_Pin, control[2]<0);
-    }
 }
 /* USER CODE END PFP */
 
@@ -224,14 +202,6 @@ int main(void)
   MX_TIM6_Init();
   MX_TIM15_Init();
   /* USER CODE BEGIN 2 */
-    /*uint32_t esc_dshot_buffer[5] = {25, 50, 0, 25, 0};
-  */
-    //Motor motor = {&htim2, TIM_CHANNEL_1};
-    //dshot_init(DSHOT150, &motor);
-    //  htim2.Instance->CCR1 = 50;
-    //  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-    //
-    //   HAL_Delay(5000);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -239,70 +209,44 @@ int main(void)
 
     DWT_Delay_Init();
 
-
+    //Start for thrower 0 data for 2s to start ESC
     dshot600(motor, 0);
     HAL_TIM_PWM_Start_DMA(&htim15, TIM_CHANNEL_1, motor, DSHOT_FRAME_SIZE);
     HAL_Delay(2000);
-    dshot600(motor, 100);
+    dshot600(motor, 100); //Set speed to 100 do disable sleep
     HAL_Delay(1000);
-    //        for(int i = 1024; i<2048; i++) {
-    //            dshot600(motor, i);
-    //            HAL_TIM_PWM_Start_DMA(&htim8, TIM_CHANNEL_1, motor, DSHOT_FRAME_SIZE);
-    //            HAL_Delay(50);
-    //        }
 
     HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
     HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
     HAL_TIM_Encoder_Start(&htim3, TIM_CHANNEL_ALL);
-    //HAL_TIM_Base_Start_IT(&htim6);
 
     HAL_GPIO_WritePin(nSleep_GPIO_Port, nSleep_Pin, 1);
-    HAL_GPIO_WritePin(M1_DIR_GPIO_Port, M1_DIR_Pin, 1);
-    //HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
+
     HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
     HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim16, TIM_CHANNEL_1);
-    TIM4->CCR3  = 0;
-    TIM4->CCR1  = 0;
-    TIM16->CCR1 = 0;
+
+    __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3, 0);
+    __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, 0);
+    __HAL_TIM_SET_COMPARE(&htim16, TIM_CHANNEL_1, 0);
 
     HAL_TIM_Base_Start_IT(&htim6);
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
     while (1) {
-
-        //call();
-
-
-        //dshot600(motor, ((TIM3->CNT)>>2)/2048);
-        //        *motor = prepareDshotPacket(((TIM3->CNT)>>2)/2048);
-        //        HAL_TIM_PWM_Start_DMA(&htim2, TIM_CHANNEL_1, motor, DSHOT_FRAME_SIZE);
-
-
-        struct Data data = {1, motorSpeeds[0], motorSpeeds[1], motorSpeeds[2]};
-        //struct Data data1 = {2, DT, DT >> 8, 8};
-
-        //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data, 4);
         if (DT != 0) {
-            //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data1, sizeof(struct Data));
             dshot600(motor, DT);
             HAL_TIM_PWM_Start_DMA(&htim15, TIM_CHANNEL_1, motor, DSHOT_FRAME_SIZE);
             DT = 0;
             HAL_Delay(100);
-            struct Data data2 = {2, DT, DT >> 8, 8};
-            //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data2, sizeof(struct Data));
         }
         if(motor_new){
-            //USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t *) &data, sizeof(struct Data));
             motor_new = 0;
             HAL_GPIO_WritePin(nSleep_GPIO_Port, nSleep_Pin, 0);
             DWT_Delay_us(30);
             HAL_GPIO_WritePin(nSleep_GPIO_Port, nSleep_Pin, 1);
-            HAL_Delay(100);
         }
-        //HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-        //HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -863,65 +807,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void dshot600(uint32_t *motor, uint16_t value) {
-    uint16_t packet = value << 1;
 
-    // compute checksum
-    int csum = 0;
-    int csum_data = packet;
-
-    motor[0] = 0;
-    for (int i = 1; i < 4; i++) {
-        csum ^= csum_data;// xor data by nibbles
-        csum_data >>= 4;
-    }
-    csum &= 0xf;
-
-    // append checksum
-    packet = (packet << 4) | csum;
-
-    // encoding
-    int i;
-    for (i = 1; i < 17; i++) {
-        motor[i] = (packet & 0x8000) ? MOTOR_BIT_1 : MOTOR_BIT_0;// MSB first
-        packet <<= 1;
-    }
-
-    motor[i++] = 0;
-}
-
-uint16_t prepareDshotPacket(const uint16_t value) {
-    uint16_t packet = (value << 1) | (0);
-    //motor->requestTelemetry = false;    // reset telemetry request to make sure it's triggered only once in a row
-
-    // compute checksum
-    int csum = 0;
-    int csum_data = packet;
-    for (int i = 0; i < 3; i++) {
-        csum ^= csum_data;// xor data by nibbles
-        csum_data >>= 4;
-    }
-    csum &= 0xf;
-    // append checksum
-    packet = (packet << 4) | csum;
-
-    return packet;
-}
-int32_t max(int32_t a, int32_t b){
-    return a > b ? a : b;
-}
-int32_t min(int32_t a, int32_t b) {
-    return a < b ? a : b;
-}
-int32_t clamp(int32_t max, int32_t min, int32_t val) {
-    if (val>max){
-        return max;
-    }else if (val < min){
-        return min;
-    } else {
-        return val;
-    }
-}
 /* USER CODE END 4 */
 
 /**
@@ -934,8 +820,9 @@ void Error_Handler(void)
     /* User can add his own implementation to report the HAL error return state */
     __disable_irq();
     while (1) {
+    return ;
     }
-  /* USER CODE END Error_Handler_Debug */
+     /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
