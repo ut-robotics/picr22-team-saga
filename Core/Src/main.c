@@ -102,9 +102,7 @@ static void MX_TIM15_Init(void);
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if(htim == &htim6) {
-        //int16_t counts_now[3] = {TIM3->CNT, TIM1->CNT, TIM2->CNT};
         for(char i = 0; i < 3; i++) {
-            //htim1.Instance->CNT
             int16_t counts_now = (int16_t)motors[i].encoder->Instance->CNT;
             dc[i] = counts_now - enc_val_prev[i];
             enc_val_prev[i] = counts_now;
