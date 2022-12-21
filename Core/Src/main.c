@@ -77,9 +77,9 @@ PIDState states[3] = {{.config=&config}, {.config=&config}, {.config=&config}};
 
 uint32_t motor[DSHOT_FRAME_SIZE];// duty cycles array
 Motor motors[3] = {
-        {&htim4,  &htim3, TIM_CHANNEL_3, M1_DIR_Pin},
+        {&htim4,  &htim2, TIM_CHANNEL_3, M1_DIR_Pin},
         {&htim4,  &htim1, TIM_CHANNEL_1, M2_DIR_Pin},
-        {&htim16, &htim2, TIM_CHANNEL_1, M3_DIR_Pin}
+        {&htim16, &htim3, TIM_CHANNEL_1, M3_DIR_Pin}
 };
 
 int32_t dc[3];
