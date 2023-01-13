@@ -96,7 +96,7 @@ image::PCB_back.PNG[]
 1. GND
 2. Thrower Signal
 
-##### Serco Connector
+##### Servo Connector
 1. Servo PWM Signal
 2. 5V
 3. GND
