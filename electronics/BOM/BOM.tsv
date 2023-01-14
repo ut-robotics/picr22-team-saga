@@ -1,0 +1,31 @@
+Name	Designator	Quantity	Description	Mouser Order Code	Farnell Order Code	TME Order Code
+10nF	C8	1	Multilayer Ceramic Capacitors MLCC - SMD/SMT CGA 0603 50V 0.01uF X7R 10% AEC-Q200	810-CGA3E2X7R1H103K	CA07638	N/A
+33nF	C25	1	Multilayer Ceramic Capacitors MLCC - SMD/SMT 0402 50VDC 0.033uF 10% X7R	963-MAASU105SB7333KF	1740618	06035C333JAT2A
+100nF	C1, C3, C4, C24, C26	5	Multilayer Ceramic Capacitors MLCC - SMD/SMT 0402 50VDC 0.1uF 10% X7R AEC-Q200	810-C1005X7R1C104K	2320759	CL05A104KP5NNNC
+0.1uF	C2, C5, C15, C16, C18, C19	6	Multilayer Ceramic Capacitors MLCC - SMD/SMT 0402 50VDC 0.1uF 10% X7R AEC-Q200	963-UMK105B7104KVHF	1740614	CC0603KRX7R8BB104
+4.7uF	C6	1	Multilayer Ceramic Capacitors MLCC - SMD/SMT 0603 10VDC 4.7uF 10% X7T AEC-Q200	581-06033D475KAT2A	N/A	0603X475K100CT
+10uF	C10, C14, C17, C20, C21, C22, C23, C29, C30, C31, C32, C33, C34, C35, C36, C37, C38	17	Multilayer Ceramic Capacitors MLCC - SMD/SMT 10uF, 25V, 10%, X6S, 0805 Multi-layer Ceramic Capacitor	187-CL21X106KAYQNWE	2346927	C2012X5R1E106KAB
+100uF	C27	1	Multilayer Ceramic Capacitors MLCC - SMD/SMT 1206 6.3VDC 100uF 20% X5R	81-GRM31CR61A107MA8L	2211193	CL32A107MPVNNNE
+LED	D1	1	LED Uni-Color Green 565nm 2-Pin Chip LED T/R, LED GREEN CLEAR CHIP SMD	859-LTST-C190GKT	1465991	LTST-C190GKT
+120R	FB1	1	Ferrite Beads BMC 0603 120R 25% A Gen C	279-BMC1JY0120AN	1515672	BLM18AG121SH1D
+USB_B_Micro	J1	1	USB - micro B USB 2.0 Receptacle Connector 5 Position Surface Mount, Right Angle; Through Hole	649-10118193-0001LF	2751675	10118193-0001LF/C
+Programmer	J2	1	Detachable Programmer connector	200-FTSH10501LDVK	N/A	N/A
+SERVO	J3	1	3-pin vertical header pin 2.54mm pitch	855-M20-9770446	CN21901	N/A
+M1_Encoder	J8	1	PCB Receptacle, Board-to-Board, 1.27 mm, 2 Rows, 4 Contacts, Through Hole Mount, Micro-MaTch	571-215079-4	1772996	7-215079-4
+M2_Encoder	J9	1	PCB Receptacle, Board-to-Board, 1.27 mm, 2 Rows, 4 Contacts, Through Hole Mount, Micro-MaTch	571-215079-4	1772996	7-215079-4
+M3_Encoder	J10	1	PCB Receptacle, Board-to-Board, 1.27 mm, 2 Rows, 4 Contacts, Through Hole Mount, Micro-MaTch	571-215079-4	1772996	7-215079-4
+Thrower	J6	1	PCB Receptacle, Board-to-Board, 1.27 mm, 2 Rows, 4 Contacts, Through Hole Mount, Micro-MaTch	571-215079-4	1772996	7-215079-4
+5.6 uH	L1	1	Power Inductor (SMD), 5.6 µH, 10 A, Shielded, 10 A, SRP6060FA	652-SRP6060FA-5R6M	2901832	N/A
+BUK6Y10	Q1	1	BUK6Y10-30P	771-BUK6Y10-30PX	3438512	BUK6Y10-30PX
+100	R3	1	Thick Film Resistors - SMD 100 Ohms 200 mW 0603 5%	603-RC0603JR-7W100RL	2008332	HP03-100R1%
+1k5	R4	1	Thick Film Resistors - SMD 1/10watt 1.5Kohms 5%	71-CRCW0603J-1.5K-E3	9233407	RC0201FR-071K5L
+3k3	R10, R11, R12	3	Chip Resistor, 0 Ohm, Jumper, 100 mW, -55 to 155 degC, 0603 (1608 Metric), RoHS, Tape and Reel	71-CRCW02013K30FKED	9238549	HP03-3K31%
+10k	R3	1	Chip Resistor, 0 Ohm, Jumper, 100 mW, -55 to 155 degC, 0603 (1608 Metric), RoHS, Tape and Reel	603-RT0603FRE0710KL	2073356	CRGP0603F10K
+52k3	R1 	1	52.3 kOhm, SMD 0603	667-ERJ-3EKF5232V	2059474	ERJ3EKF5232V
+CM1223	U1	1	Industry First Low Capacitance ESD Protection Arrays with Backdrive Protection, 5-Pin SOT- 23	748-CM1223-02SO	3607672	CM1223-02SO
+NCP164C	U2	1	LDO Voltage Regulators LDO 300mA AD 3.3V	863-NCP164CSN330T1G	3367831	NCP164CSN330T1G
+STM32G441KB	U3	1	ARM MCU, STM32 Family STM32G4 Series Microcontrollers, ARM Cortex-M4F, 32 bit, 170 MHz, 128 KB	511-STM32G441KBT6	3132413	N/A
+TPS62933	U5	1	Switching Voltage Regulators 3.8-V to 30-V, 3-A, 200-kHz to 2.2-MHz, low-IQ synchronous buck converter in SOT-583 package	595-TPS62933DRLR	N/A	N/A
+MAX14930	U6, U7	1	Digital Isolator, 4 Channel, 38.2 ns, 1.71 V, 5.5 V, NSOIC, 16 Pins	700-MAX14930DASE+	3257451	N/A
+MAX12930	U8	1	Digital Isolator, 2 Channel, 23.9 ns, 1.71 V, 5.5 V, NSOIC, 8 Pins	700-MAX12930EASA+	3918086	N/A
+DRV8243	U9, U10, U11	3	Automotive 40-V, 12-A H-Bridge driver with integrated current sensing and feedback 14-VQFN-HR -40 to 125	595-DRV8243HQRXYRQ1	N/A	N/A
