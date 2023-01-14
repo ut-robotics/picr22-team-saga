@@ -59,7 +59,7 @@ The main module which initiates the image processing module and generates a proc
 ### How to run the robot
 Firstly, run the `config_colors.py` program to configure colors for various objects, like: balls, court, baskets(for particular color), white/balck lines, etc.
 
-After configuring the colors, run the `main.py` program. This program creates an image frame and processes the frame with the current configurations and generates a processed frame which is feeded to the `state_amchine.py` module which acts accordingly as per the current state of the motion, executing a state machine logic.
+After configuring the colors, run the `main.py` program. This program creates an image frame and processes the frame with the current configurations and generates a processed frame which is feeded to the `state_machine.py` module which acts accordingly as per the current state of the motion, executing a state machine logic.
 
 ### Game Logic
 
