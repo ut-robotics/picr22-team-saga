@@ -41,7 +41,7 @@ This program stores the data of the colors that are detected after configuring u
 ##### config_color.py
 This program is used mainly to configure colors for various objects in the camera frame, such as balls, court, baskets, etc.
 
-##### iamge_processor.py
+##### image_processor.py
 This is the module responsible for the image processing operations and detecting colors for image segmentation. This module produces the processed iamge frame and all of its objects necessary for further analysis and processing.
 
 ##### robot_State.py
