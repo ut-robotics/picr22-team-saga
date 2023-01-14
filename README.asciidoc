@@ -18,9 +18,7 @@ The high-power driving side also consists of a 5V TPS62933 voltage regulator con
 
 The board can controlcontrol 3 DC motors. The motor driver (DRV8243HRXYQ1) has input voltage of 16.8V coming from the battery.
 
-Since we are leaving the ITRIP pin unconnected, it is operating in the LVL6OF6 with setting the voltage of ITRIP pin to 2.97 V. And, we are connecting 3.3kohms resistor at IPROPI pin.
-
-Therefore, the output current = (2.97 / 3300) * 3070 ~ 2.77 A.
+The output current of the Voltage regulator is about 2.77 A.
 
 === Pinout Connections
    
