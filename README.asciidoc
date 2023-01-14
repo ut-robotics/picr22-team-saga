@@ -100,23 +100,45 @@ But, we decided not to use this PCB for the robot, and proceeded with the test r
 
 
 == Mechanics
-The test robot we received was in quite a bad codition. A lot of critical components, holes were either cut out or modified by mechanical means, so at first, taking the measurements for a test thrower was quite a nightmare, but after getting access to the test robot's cad files, the design of test thrower went on much more smoothly. 
+The test robot we received was in quite a bad codition. A lot of critical components and holes were either cut out or modified by mechanical means, so at first, taking the measurements for a test thrower was quite a nightmare, but after getting access to the test robot's cad files, the design of test thrower went on much more smoothly. 
 
 Even though the test robot was quite janky it served us well during testing of software/firmware phases. 
 
 When it comes to our actual robot's design, it was quite different from the test one:
-Firstly, I made our robot quite a bit smaller (240mm in diameter)
-The motor mounts are attached to both the top and bottom plate thus making the whole assembly more sturdy.
-The omniwheels were 3D printed, the rollers were pressure fitted which greatly decreases the parts complexity and increases the ease of servicability. The connecor which fastens the wheel to the motors shaft is made out of aluminium on a lathe.
+
+    image::Images/robot.png[]
+
+    image::Images/robot_side.png[]
+
+    image::Images/robot_top.png[]
+
+
+
+
+- Firstly, I made our robot quite a bit smaller (240mm in diameter)
+- The motor mounts are attached to both the top and bottom plate thus making the whole assembly more sturdy:
+
+    image::Images/motor_mounts.png[]
+
+- The omniwheels were 3D printed, the rollers were pressure fitted which greatly decreases the parts complexity and increases the ease of servicability. The connecor which fastens the wheel to the motors shaft is made out of aluminium on a lathe.
+
+    image::Images/omniwheel.png[]
+
+    image::Images/omniwheel_pressurefit.png[]
+
 
 For the thrower, design wise I went the most popular way. It being 2 ramps that are connected to 2 sidewalls using M3 spacers. The sidewalls are fastened to both the bottom and top plate and to one of them, a thrower motor with a spacer is screwed on. The throwing angle of the ramps is 55 degrees.
 
+    image::Images/thrower.png[]
+
+
 === Self Analysis
 
-In my opinion, more thought and time should've been put into the cable management routing. In our current robot there isn't much dedicated space for wires to sit or to be managed. A great addition would be a 3d printed bracket which holds the power switches along with the battery connectors on the robots side, this would make the cable management look more tidy and organised. 
-I think that the small form factor makes our robot more agile on the playing field compared to our test robot. At first I had my concerns about the center of gravity being too high, but it turned out fine in the end. 
-If I had more time for the design, i would've loved to implement a thrower with variable angle of throwing.
-== Blog
+- In my opinion, more thought and time should've been put into the cable management routing. In our current robot there isn't much dedicated space for wires to sit or to be managed. A great addition would be a 3d printed bracket which holds the power switches along with the battery connectors on the robots side, this would make the cable management look more tidy and organised. 
+- The small form factor makes our robot more agile on the playing field compared to our test robot. At first I had my concerns about the center of gravity being too high, but it turned out fine in the end. 
+- If I had more time for the design, i would've loved to implement a thrower with variable angle of throwing.
+
+=== Blog
 
 === Monday 2022-09-05
 *Anish:* Connected the main board if the test robot with motor drivers. Placed everything in the chasis provided. Checked the wire connections. (2h) +   
