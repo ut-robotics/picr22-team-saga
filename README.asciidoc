@@ -50,7 +50,7 @@ This is an implementation of a state machine logic.     +
 
 image::Images/main.PNG[]    
 
-image::Images/state_machine.PNG[]   
+image::Images/state_machine_workflow.PNG[]   
 
 === Self Analysis
 - The state machine logic implementation works pretty good (not all tasks were completed: till follow the ball)
