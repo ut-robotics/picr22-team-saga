@@ -42,7 +42,9 @@ The main module which initiates the image processing module and generates a proc
 === Game Logic
 Initially, the robot is in the state: `FIND_A_BALL`. In this state, the robot searches the ball. If there is no ball to be seen in the processed camera frame, the it keeps rotating at the same place and detects the ball.    +
 
-If the ball is detected then the state of the robot changes from `FIND_A_BALL` to `FOLLOW_A_BALL`. However, if the robot is unable to find a ball even after a certain timeout window, then it detects the farther basket (magenta or blue), and then drives towards the opposite half, stuill searching the ball. In this case, it's stat would be 'FIND_A_BALL'.      +
+If the ball is detected then the state of the robot changes from `FIND_A_BALL` to `FOLLOW_A_BALL`. However, if the robot is unable to find a ball even after a certain timeout window, then it detects the farther basket (magenta or blue), and then drives towards the opposite half, still searching the ball. In this case, it's status would be 'DRIVE_TO_OTHER_HALF'.      +
+
+As soon as the robot sees a ball, the status will be changed to "FIND_A_BALL".    +
 
 This is an implementation of a state machine logic.     +
 
