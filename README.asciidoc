@@ -5,7 +5,13 @@
 - Elecronics: Anish Shrestha   
 - Programming: Artem Kabakov   
    
-   
+
+== Programming
+
+== Electronics
+
+== Mechanics
+
 == Blog
 
 === Monday 2022-09-05
