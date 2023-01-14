@@ -2,8 +2,8 @@
 
 === Team members
 - Mechanics: Georgs Narbuts   
-- Elecronics: Anish Shrestha   
-- Programming: Artem Kabakov   
+- Elecronics(Design) + Programming: Anish Shrestha   
+- Firmware: Artem Kabakov   
    
 
 == Programming
