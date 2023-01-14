@@ -20,12 +20,12 @@ To install python 3.9, the steps mentioned below can be followed:
 `sudo apt install python3.9-distutils`  +
 
 ##### Install pip3.9 
-`
+``
 wget https://bootstrap.pypa.io/get-pip.py   +
 python3.9 get-pip.py    +
 echo 'export PATH=~/.local/bin/:$PATH' >> ~/.bashrc +
 source ~/.bashrc    +
-`
+``
 
 ### Used Modules and Libraries
 #### Libraries
