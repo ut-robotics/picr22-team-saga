@@ -140,6 +140,24 @@ image::Images/thrower.png[]
 - The small form factor makes our robot more agile on the playing field compared to our test robot. At first we had our concerns about the center of gravity being too high, but it turned out fine in the end. 
 - If we had more time for the design, we would have implemented a thrower with variable angle of throwing.
 
+=== Personal comments
+
+==== Georgs Narbuts
+
+I mainly worked on mechanics with a little bit of electronics for the test robot. This was my first experience using Fusion360 and really enjoyed it although it was quite frustrating from time to time. There's no doubt that I only explored 1% of everything fusion360 offers and a lot of things could probably be done faster and easier.
+
+Really like that we had access to the lab with all of the tools. Even though I've had quite a lot of experience in fabricating things before this, I never had the chance to use a cnc mill or a lathe. The amount of 3d printers is also very nice, rarely all of them were occupied. 
+If i had to do something differently the next time, I would definitely put more emphasis on time management since the deadlines were coming up very fast and some of the things had to be rushed thus leading to a lower quality product.
+
+In my opinion the course offers a person to gain experience in several spheres, be it mechanics, electronics or programming. The instructors are understanding and helpful if you happen to run into any issues. The practical, communication skills gained in this course are valuable.
+
+Suggestions for the next year students:
+- Team work makes the dream work. Usually without motivated teammates and good communication the project is bound to fail.
+- Time management is key, don't leave everything to the last minute.
+
+
+
+
 === Blog
 
 === Monday 2022-09-05
