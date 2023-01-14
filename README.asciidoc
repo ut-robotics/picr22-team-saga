@@ -1,7 +1,7 @@
 ## Software Documentation
 
 ### Necessary Software Installation
-The programmes necessary to run the robot are built over python 3.9. So python 3.9 installation is highly recommended. However, other later versions of python can also be used. But, some libraries and modules might not work as intended,a dn furhter optimizationa dn implementation might be required.
+The programmes necessary to run the robot are built over python 3.9. So python 3.9 installation is highly recommended. However, other later versions of python can also be used. But, some libraries and modules might not work as intended, and further optimization and implementation might be required. 
 
 Python version: `python 3.9`
 
