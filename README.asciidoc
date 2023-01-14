@@ -57,6 +57,46 @@ image::Images/state_machine.PNG[]
 
 == Electronics
 
+The mainboard comprises of 3 DC motor drivers, each of which is responsible to control an individual DC motor. The drivers are powered by 4S LiPo abtetry and the microcontroller side is powerd through USB, whose other end is connected to the on-board PC (NUC).    +
+
+The microcontroller and the PC also communicates over serial through the same USB connection.
+
+The Electronics part comprises of two sub tasks: 
+- Electronics Design and Fabriaction
+- Firmware programming
+
+3D view of the designed PCB:    +
+
+image::Images/PCB_front.PNG[]
+
+image::Images/PCB_back.PNG[]
+
+
+The electronics design is completed, and the PCB was fabricated by JLCPCB and recived as well.
+
+PCB received:
+
+image::Images/PCB.PNG[]
+
+However, the board had some problems. Firstly, the pads where the battery's positive terminal needed to be connected were left unconnected. Thus, this conenction needed to be provide by some other means. Secondly, the voltage protection MOSFET kept on burning everytime.
+
+So for connecting the battery's terminal, the line from the MOSFET's inputs were taken. Since we could not make use of the reverse voltage protection MOSFET, we decided not to use the MOSFET and provided the supply for the drivers straight from battery.
+
+image::Images/problem.PNG[]
+
+
+Cable Management:   
+
+image::Images/cable_management.PNG[]
+
+
+But, we decided not to use this PCB for the robot, and proceeded with the test robot's PCB adn firmware, and building the software programs over the test robot's electronics hardware.
+
+=== Self Analysis
+
+- The designed PCB was good, but because of some software(KiCAD) glitches, a pad remained unconnected which could not be detected before fabrication unfortunately. This thing could have been resolved.
+- Not being able to make use of the MOSFET was a major setback for the electronics part. The were no issues with the footprint. This part could have been better dealt with.
+- The worst thing about the electronics part was that the firmware part was not complete.
 
 
 == Mechanics
