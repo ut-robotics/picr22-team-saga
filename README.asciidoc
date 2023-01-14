@@ -14,6 +14,8 @@
 `OpenCV` to interfce the in-built libraries for computer vision     +
 `Pyrealsense2` to interfc the Realsense Camera and its configurations   +
 `Pyserial` for serial communication with the STM32 microcontoller over USB      +
+`enum` to make enum classes for setting the states for state machine logic      +
+`serial.tools.list_ports` to dynamically search for the COm ports for serial communication      +
 
 ==== Modules
 ===== Color.py
