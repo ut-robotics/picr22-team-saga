@@ -61,6 +61,6 @@ Firstly, run the `config_colors.py` program to configure colors for various obje
 
 After configuring the colors, run the `main.py` program. This program creates an image frame and processes the frame with the current configurations and generates a processed frame which is feeded to the `state_machine.py` module which acts accordingly as per the current state of the motion, executing a state machine logic.
 
-### Game Logic
+
 
  
