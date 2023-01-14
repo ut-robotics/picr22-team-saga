@@ -106,7 +106,7 @@ The test robot we received was in quite a bad codition. A lot of critical compon
 
 Even though the test robot was quite janky it served us well during testing of software/firmware phases. 
 
-When it comes to our actual robot's design, it was quite different from the test one ([fusion360 assembly](https://a360.co/3kaIMCJ)):
+When it comes to our actual robot's design, it was quite different from the test one (fusion360 assembly link: https://a360.co/3kaIMCJ):
 
 image::Images/robot.png[]
 
