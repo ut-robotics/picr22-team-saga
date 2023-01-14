@@ -8,7 +8,52 @@
 
 == Programming
 
+=== Used Modules and Libraries
+==== Libraries
+`Numpy` for mathematical arrays and storing data for image processing operations and iterating over the objects     +
+`OpenCV` to interfce the in-built libraries for computer vision     +
+`Pyrealsense2` to interfc the Realsense Camera and its configurations   +
+`Pyserial` for serial communication with the STM32 microcontoller over USB      +
+
+==== Modules
+===== Color.py
+This program stores the data of the colors that are detected after configuring using the `config_colors.py` program.    +
+
+===== config_color.py
+This program is used mainly to configure colors for various objects in the camera frame, such as balls, court, baskets, etc.
+
+===== image_processor.py
+This is the module responsible for the image processing operations and detecting colors for image segmentation. This module produces the processed iamge frame and all of its objects necessary for further analysis and processing.
+
+===== robot_State.py
+An enum class defined to set the state at which the robot may be at an isntant.
+
+===== api.py
+The python module responsible to communicate serially with the STM32 microcontroller over USB. This module finds the USB device dynamically.
+
+===== state_machine.py
+The module which detects the state of teh robot at any current instant, taking the processed frame inputs from the `main.py` module, and acting accordingly waht to do when a robot is in a particular state, i.e., whether to advance forward, por turn, or stay still.
+
+===== main.py
+The main module which initiates the image processing module and generates a processed frame and forwards this processed frame to the `state_machine.py` module. This module is also responsible to print messages in the prompt and broadcast the current image frame (as a live stream in the screen indicating the objects, such as: largest ball, specific baskets, etc).
+
+=== Game Logic
+Initially, the robot is in the state: `FIND_A_BALL`. In this state, the robot searches the ball. If there is no ball to be seen in the processed camera frame, the it keeps rotating at the same place and detects the ball.    +
+If the ball is detected then the state of the robot changes from `FIND_A_BALL` to `FOLLOW_A_BALL`. However, if the robot is unable to find a ball even after a certain timeout window, then it detects the farther basket (magenta or blue), and then drives towards the opposite half, stuill searching the ball. In this case, it's stat would be 'FIND_A_BALL'.      +
+This is an implementation of a state machine logic.     +
+
+image::Images/main.PNG[]    
+
+image::Images/state_machine.PNG[]   
+
+=== Self Analysis
+- The state machine logic implementation works pretty good (not all tasks were completed: till follow the ball)
+- Robot's response to tracking the ball as per ball's movement is accurate
+- Detection of farther basket and driving towards the oppsoite half when the ball is far could be better optimized
+
 == Electronics
+
+
 
 == Mechanics
 
