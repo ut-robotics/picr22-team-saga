@@ -54,7 +54,7 @@ The python module responsible to communicate serially with the STM32 microcontro
 The module which detects the state of teh robot at any current instant, taking the processed frame inputs from the `main.py` module, and acting accordingly waht to do when a robot is in a particular state, i.e., whether to advance forward, por turn, or stay still.
 
 ##### main.py
-The main module which initiates the image processing module and generates a processed frame and forwards this processed frame to the `state_machine.py`module. This module is also responsible to print messages in the prompt and broadcast the current image frame (as a live stream in the screen indicating the objects, such as: largest ball, specific baskets, etc).
+The main module which initiates the image processing module and generates a processed frame and forwards this processed frame to the `state_machine.py` module. This module is also responsible to print messages in the prompt and broadcast the current image frame (as a live stream in the screen indicating the objects, such as: largest ball, specific baskets, etc).
 
 ### How to run the robot
 Firstly, run the `config_colors.py` program to configure colors for various objects, like: balls, court, baskets(for particular color), white/balck lines, etc.
