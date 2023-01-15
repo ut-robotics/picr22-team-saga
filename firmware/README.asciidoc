@@ -14,7 +14,7 @@ Here, the `struct` library converts between python values and C structs represen
 
 `motors[0]`, `motors[1]` and `motors[2]` are the speed values for individual motors calculated according to the omni-directional kinematics.
 
-This returned byte data is sent over Pyserial to the mainboard at a baud rate 0f 115200     +
+This returned byte data is sent over Pyserial to the mainboard at a baud rate of 115200     +
 ``
 self.ser = serial.Serial(serial_port, 115200)   +
 self.ser.write(data)    +
