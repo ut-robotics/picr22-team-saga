@@ -22,7 +22,7 @@ self.ser.write(data)    +
 
 === Data received from the mainboard
 
-Here, no data is received from the mainboards, as we have implemented only a one-way communication between the mainboard and the system(NUC), over which the software (main program) sends motor speeds over the serial bus, and the mainboard drives the motors in that particualr speed.
+Here, no data is received from the mainboard, as we have implemented only a one-way communication between the mainboard and the system(NUC), over which the software (main program) sends motor speeds over the serial bus, and the mainboard drives the motors in that particualr speed.
 
 ``
 self.ser.read()     +
