@@ -161,18 +161,18 @@ Suggestions for the next year students:
 
 ==== Anish Shrestha
 
-I mainly worked on the electronics design and software programming tasks, along with assembly of the test robot. This was my first time experience with the multi-layer PCB design, and especially the SMD components. This expereince was pretty fruitful as I learned few new things while working with the electronics design, especially dsigning the high-current paths and impedance matching in the differential pair routing. I had prior expereince with KiCAD, so the entire designing process went smooth for me.
+I mainly worked on the electronics design and software programming tasks, along with assembly of the test robot. This was my first time experience with the multi-layer PCB design, and especially the SMD components. This expereience was pretty fruitful as I learned few new things while working with the electronics design, especially designing the high-current paths and impedance matching in the differential pair routing. I had prior experience with KiCAD, so the entire designing process went smooth for me.
 
-Moreover, in the software programming task, it was a new experience for me as I have very little expereince in programming before. Even though I was familiar with ROS programming, here most of the things need to be set and configured manually which was a challenging task. Also, this was my first time experience with the state machine logic, and I came to know about its significance in such as complex software architecture. Overall, it was a fun experience which taught me a lot of things.
+Moreover, in the software programming task, it was a new experience for me as I have very little experience in programming before. Even though I was familiar with ROS programming, here most of the things need to be set and configured manually which was a challenging task. Also, this was my first time experience with the state machine logic, and I came to know about its significance in such as complex software architecture. Overall, it was a fun experience which taught me a lot of things.
 
-Personally, I feel prioritizing the tasks is an undermined skill which should be acknowledge by all. This makes the flow of the work more practical, as different category of tasks have distinct deadlines. So if I could change one thing in our approach, I would put this task as a reminder. Also, configuration of the colors is something that is very crucial for this project, but is sometimes neglected which results in very poor outcomes. I needed to spend hours in the later stages of the project just configuring colors. So for an improved version of the robot, color configuration should be put a little more effort and a little more time.
+Personally, I feel prioritizing the tasks is an undermined skill which should be acknowledged by all. This makes the flow of the work more practical, as different category of tasks have distinct deadlines. So if I could change one thing in our approach, I would put this task as a reminder. Also, configuration of the colors is something that is very crucial for this project, but is sometimes neglected which results in very poor outcomes. I needed to spend hours in the later stages of the project just configuring colors. So for an improved version of the robot, color configuration should be put a little more effort and a little more time.
 
-Also, revised cross-checking the electronics design is an important task that should be carried out. We missed out a connectionn in one of the power pads, which created a mess actually. So for next time, I would give more attention to these minute details.
+Also, revised cross-checking the electronics design is an important task that should be carried out. We missed out a connection in one of the power pads, which created a mess actually. So for next time, I would give more attention to these minute details.
 
 Suggestions for next year students:
 - Take some time and choose the team members wisely.
 - Plan the project timeline better.
-- Skim through the taks at the start so you would know what things you need to cover until the end of the project. If you need to acquire new skills, its better to start early.
+- Skim through the tasks at the start so you would know what things you need to cover until the end of the project. If you need to acquire new skills, it's better to start early.
 
 
 === Blog
