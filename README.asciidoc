@@ -11,9 +11,9 @@
 === Used Modules and Libraries
 ==== Libraries
 `Numpy` for mathematical arrays and storing data for image processing operations and iterating over the objects     +
-`OpenCV` to interfce the in-built libraries for computer vision     +
-`Pyrealsense2` to interfc the Realsense Camera and its configurations   +
-`Pyserial` for serial communication with the STM32 microcontoller over USB      +
+`OpenCV` to interface the in-built libraries for computer vision     +
+`Pyrealsense2` to interface the Realsense Camera and its configurations   +
+`Pyserial` for serial communication with the STM32 microcontroller over USB      +
 `enum` to make enum classes for setting the states for state machine logic      +
 `serial.tools.list_ports` to dynamically search for the COm ports for serial communication      +
 
@@ -25,22 +25,22 @@ This program stores the data of the colors that are detected after configuring u
 This program is used mainly to configure colors for various objects in the camera frame, such as balls, court, baskets, etc.
 
 ===== image_processor.py
-This is the module responsible for the image processing operations and detecting colors for image segmentation. This module produces the processed iamge frame and all of its objects necessary for further analysis and processing.
+This is the module responsible for the image processing operations and detecting colors for image segmentation. This module produces the processed image frame and all of its objects necessary for further analysis and processing.
 
 ===== robot_State.py
-An enum class defined to set the state at which the robot may be at an isntant.
+An enum class defined to set the state at which the robot may be at an instant.
 
 ===== api.py
 The python module responsible to communicate serially with the STM32 microcontroller over USB. This module finds the USB device dynamically.
 
 ===== state_machine.py
-The module which detects the state of teh robot at any current instant, taking the processed frame inputs from the `main.py` module, and acting accordingly waht to do when a robot is in a particular state, i.e., whether to advance forward, por turn, or stay still.
+The module which detects the state of teh robot at any current instant, taking the processed frame inputs from the `main.py` module, and acting accordingly what to do when a robot is in a particular state, i.e., whether to advance forward, por turn, or stay still.
 
 ===== main.py
 The main module which initiates the image processing module and generates a processed frame and forwards this processed frame to the `state_machine.py` module. This module is also responsible to print messages in the prompt and broadcast the current image frame (as a live stream in the screen indicating the objects, such as: largest ball, specific baskets, etc).
 
 === Game Logic
-Initially, the robot is in the state: `FIND_A_BALL`. In this state, the robot searches the ball. If there is no ball to be seen in the processed camera frame, the it keeps rotating at the same place and detects the ball.    +
+Initially, the robot is in the state: `FIND_A_BALL`. In this state, the robot searches the ball. If there is no ball to be seen in the processed camera frame, then it keeps rotating at the same place and detects the ball.    +
 
 If the ball is detected then the state of the robot changes from `FIND_A_BALL` to `FOLLOW_A_BALL`. However, if the robot is unable to find a ball even after a certain timeout window, then it detects the farther basket (magenta or blue), and then drives towards the opposite half, still searching the ball. In this case, it's status would be 'DRIVE_TO_OTHER_HALF'.      +
 
@@ -55,16 +55,16 @@ image::Images/state_machine_workflow.PNG[]
 === Self Analysis
 - The state machine logic implementation works pretty good (not all tasks were completed: till follow the ball)
 - Robot's response to tracking the ball as per ball's movement is accurate
-- Detection of farther basket and driving towards the oppsoite half when the ball is far could be better optimized
+- Detection of farther basket and driving towards the opposite half when the ball is far could be better optimized
 
 == Electronics
 
-The mainboard comprises of 3 DC motor drivers, each of which is responsible to control an individual DC motor. The drivers are powered by 4S LiPo abtetry and the microcontroller side is powerd through USB, whose other end is connected to the on-board PC (NUC).    +
+The mainboard comprises of 3 DC motor drivers, each of which is responsible to control an individual DC motor. The drivers are powered by 4S LiPo battery and the microcontroller side is powered through USB, whose other end is connected to the on-board PC (NUC).    +
 
 The microcontroller and the PC also communicates over serial through the same USB connection.
 
-The Electronics part comprises of two sub tasks: 
-- Electronics Design and Fabriaction
+The Electronics part comprises of two subtasks: 
+- Electronics Design and Fabrication
 - Firmware programming
 
 3D view of the designed PCB:    +
@@ -80,7 +80,7 @@ PCB received:
 
 image::Images/PCB.PNG[]
 
-However, the board had some problems. Firstly, the pads where the battery's positive terminal needed to be connected were left unconnected. Thus, this conenction needed to be provide by some other means. Secondly, the voltage protection MOSFET kept on burning everytime.
+However, the board had some problems. Firstly, the pads where the battery's positive terminal needed to be connected were left unconnected. Thus, this connection needed to be provided by some other means. Secondly, the voltage protection MOSFET kept on burning everytime.
 
 So for connecting the battery's terminal, the line from the MOSFET's inputs were taken. Since we could not make use of the reverse voltage protection MOSFET, we decided not to use the MOSFET and provided the supply for the drivers straight from battery.
 
@@ -102,7 +102,7 @@ But, we decided not to use this PCB for the robot, and proceeded with the test r
 
 
 == Mechanics
-The test robot we received was in quite a bad codition. A lot of critical components and holes were either cut out or modified by mechanical means, so at first, taking the measurements for a test thrower was quite a nightmare, but after getting access to the test robot's cad files, the design of test thrower went on much more smoothly. 
+The test robot we received was in quite a bad condition. A lot of critical components and holes were either cut out or modified by mechanical means, so at first, taking the measurements for a test thrower was quite a nightmare, but after getting access to the test robot's cad files, the design of test thrower went on much more smoothly. 
 
 Even though the test robot was quite janky it served us well during testing of software/firmware phases. 
 
@@ -122,7 +122,7 @@ image::Images/robot_top.png[]
 
 image::Images/motor_mounts.png[]
 
-- The omniwheels were 3D printed, the rollers were pressure fitted which greatly decreases the parts complexity and increases the ease of servicability. The connecor which fastens the wheel to the motors shaft is made out of aluminium on a lathe.
+- The omniwheels were 3D printed, the rollers were pressure fitted which greatly decreases the parts complexity and increases the ease of serviceability. The connector which fastens the wheel to the motors shaft is made out of aluminium on a lathe.
 
 image::Images/omniwheel.png[]
 
@@ -217,7 +217,6 @@ Suggestions for the next year students:
 
 === Thursday 2022-10-27
 *Anish:* Pushed the new design to github repo. Got few more issues in the design, and solved them. Repushed the commits. Few issues were remaining. Waiting for the response/approval. (2h)+
-<<<<<<< HEAD
 
 === Monday 2022-10-31
 *Anish:* Progress presentation. Started camera calibration. (1.5h) +
@@ -259,7 +258,7 @@ Suggestions for the next year students:
 
 === Wednesday 2022-11-23
 *Anish:* Programmed the software part for ball detectiona nd follow. Ran into the same problem of not so precise ball tracking. Detects the ball but the tracking algorithm fails. Need to change the scaling factor and might need to incorporate PID control as the movement in left and right motion is not symmetric. Tested the thrower and calibrated the thrower speed according to the distance. interpoaltion yet to be implemented. Here also lienar scaling performed, but not precise. Reconfigured all color confugurations again as theer were few problems while ball detection. (4.5h) +
-<<<<<<< HEAD
+
 
 === Monday 2022-11-28
 *Anish:* Progress presentation.Tuned the proportional tuning for P-controller, scaling the speeds for controlled motion of the robot. Reconfigured colors for better object derection, especially balls. (2.5h)+
@@ -292,4 +291,3 @@ Suggestions for the next year students:
 
 == Saturday 2022-12-10
 *Georgs* CNCd parts cleaned up, partial assembly. Need to migrate some components from the test robot to the new one (8h+)
->>>>>>> 73095bfb929ac4462d035fdb161416a2abb43a7f
