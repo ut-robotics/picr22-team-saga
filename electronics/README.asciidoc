@@ -69,11 +69,11 @@ Motor3 PWM: PB4   +
 
 ==== PCB front side
 
-image::electronics/Images/PCB_front.PNG[]
+image::Images/PCB_front.PNG[]
 
 ==== PCB back side
 
-image::electronics/Images/PCB_back.PNG[]
+image::Images/PCB_back.PNG[]
 
 
 ==== Connector pinouts
