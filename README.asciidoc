@@ -161,7 +161,7 @@ Suggestions for the next year students:
 
 ==== Anish Shrestha
 
-I mainly worked on the electronics design and software programming tasks, along with assembly of the test robot. This was my first time experience with the multi-layer PCB design, and especially the SMD components. This expereience was pretty fruitful as I learned few new things while working with the electronics design, especially designing the high-current paths and impedance matching in the differential pair routing. I had prior experience with KiCAD, so the entire designing process went smooth for me.
+I mainly worked on the electronics design and software programming tasks, along with assembly of the test robot. This was my first time experience with the multi-layer PCB design, and especially the SMD components. This experience was pretty fruitful as I learned few new things while working with the electronics design, especially designing the high-current paths and impedance matching in the differential pair routing. I had prior experience with KiCAD, so the entire designing process went smooth for me.
 
 Moreover, in the software programming task, it was a new experience for me as I have very little experience in programming before. Even though I was familiar with ROS programming, here most of the things need to be set and configured manually which was a challenging task. Also, this was my first time experience with the state machine logic, and I came to know about its significance in such as complex software architecture. Overall, it was a fun experience which taught me a lot of things.
 
@@ -201,7 +201,7 @@ Suggestions for next year students:
 *Georgs:* Submitted the thrower design for approval, got some feedback that needs to be fixed. (1.5h) +
 
 === Monday 2022-09-19
-*Anish:* PCB dsign continued. Some new footprints made (custom). Progress presentation. (1.5h)+   
+*Anish:* PCB design continued. Some new footprints made (custom). Progress presentation. (1.5h)+   
 
 === Thursday 2022-09-22
 *Anish:* The omni-motion tested. Got sued to the battery basics, and received teh batetry. Made connectors compliant to the ones with abttery. Rewired the test robot. (2h)+   
