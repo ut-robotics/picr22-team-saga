@@ -16,10 +16,8 @@ Here, the `struct` library converts between python values and C structs represen
 
 This returned byte data is sent over Pyserial to the mainboard at a baud rate 0f 115200     +
 ``
-self.ser.write(data)    +
-``
-``
 self.ser = serial.Serial(serial_port, 115200)   +
+self.ser.write(data)    +
 ``
 
 === Data received from the mainboard
