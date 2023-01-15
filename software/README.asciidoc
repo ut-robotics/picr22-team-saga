@@ -59,23 +59,14 @@ The main module which initiates the image processing module and generates a proc
 ### How to run the robot
 Firstly connect to the on-board computer (NUC) through ssh. Make sure that the ssh configurations are enabled in the NUC.
 
-Robot id: 9         +
-SSH credentials:    +
-``
-Username: nine      +
-Password: robot
-``
-
 Run the following command to connect to the robot's computer via SSH:   +
 ``
-ssh -X nine@192.168.3.43    +
+ssh -X robot_id@robot_ip_address    +
 ``
-
-Here, ip address may change. Please make sure the ip address of the robot's pc.     +
 
 Clone the `software` branch of the repo.
 
-After cloning, run the `config_colors.py` program to configure colors for various objects, like: balls, court, baskets(for particular color), white/balck lines, etc.
+After cloning, navigate to the `Software/Test_Robot_Software` directory and run the `config_colors.py` program to configure colors for various objects, like: balls, court, baskets(for particular color), white/balck lines, etc.
 
 After configuring the colors, run the `main.py` program. This program creates an image frame and processes the frame with the current configurations and generates a processed frame which is feeded to the `state_machine.py` module which acts accordingly as per the current state of the motion, executing a state machine logic.
 
