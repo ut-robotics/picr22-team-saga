@@ -133,6 +133,7 @@ For the thrower, design wise I went the most popular way. It being 2 ramps that 
 
 image::Images/thrower.png[]
 
+image::Images/New_robot.PNG[]
 
 === Self Analysis
 
