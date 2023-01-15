@@ -198,50 +198,38 @@ Suggestions for the next year students:
 === Thursday 2022-09-29
 *Anish:* PCB design completed. Needed few final tweaks. Sent the design for approval. Assembled the parts of the test robot after changing few parts (motor and driver) (1.5h)+   
 
-=== Monday 2022-10-03
-
 === Thursday 2022-10-06
 *Anish:* With some of the previous issues solved, the PCB design had new issues assigned. Sequentially tried to sort those issues. (1.5h)+
-
 *Georgs* Thrower design aproved, got acquainted with the CNC mill. Milled out parts for the thrower. (3h)+
 
 === Monday 2022-10-10
 *Anish:* Still there were issues with the board design. Mainly with the high current paths and differential USB pair routing. Updated the board with hgh current paths with copper fill. Tweaked few other things in the PCB design to make it an optimal design (1.5h)+
-
 *Georgs* Assembled the thrower and attached it to the test robot. (2h)+
+
 === Monday 2022-10-24
 *Anish:* Rewired the cables including the thrower motor in test robot. Checked the connections and if the motors were well connected by powering the robot and driving the motors: wheels and thrower. Continued with the PCB design part. (1.5h)+
-
 *Georgs* Started designing the omni-wheels. Goes very slow. (3.5h)+
-
 
 === Thursday 2022-10-27
 *Anish:* Pushed the new design to github repo. Got few more issues in the design, and solved them. Repushed the commits. Few issues were remaining. Waiting for the response/approval. (2h)+
 
 === Monday 2022-10-31
 *Anish:* Progress presentation. Started camera calibration. (1.5h) +
-
 *Georgs* Progress presentations, wheel design started. (2h) +
-
 *Artem:* Attended progress presentations. (1h) +
 
 === Thursday 2022-11-3
 *Anish:* Some issues related to the realsense library. Solving the issues. Started camera configuration: blod detection and setting optimum parameter values. (2h) +   
-
 *Artem:* Received PCB and Start soldering. Work with camera calibration. (1.5h) +  
 
 === Monday 2022-11-7
 *Anish:* Configured color settings for the realsense and started the ball detection. Lighting and brightness gives problems while ball detection. Reconfigured color settings and parameters. (2.5h) +   
-
 *Georgs* Omniwheel design, took some measurements. Everythings going smoothly. (2h) +
-
 *Artem:* Resolve issues with PCB. Running ball detection program. (2h) +
 
 === Thursday 2022-11-10
 *Anish:* Configures the camera in computer lab. Detects the ball. But in other rooms, the ball detection program is irresponsive. Sorting out the problems. (2h) +   
-
 *Georgs* Printed a test piece for omniwheel design. The rollers fit in great. The design is ready for approval. Submitted for approval. (3h) +
-
 *Artem:* Soldering and working with the PCB. Many problems faced in order to sue the new PCBs.(1.5h) +
 
 === Monday 2022-11-14
@@ -263,31 +251,29 @@ Suggestions for the next year students:
 === Monday 2022-11-28
 *Anish:* Progress presentation.Tuned the proportional tuning for P-controller, scaling the speeds for controlled motion of the robot. Reconfigured colors for better object derection, especially balls. (2.5h)+
 
-=== Thursday 2022-12-02
-*Anish:* Tested the ball detection and ball follow. Works good when the ball is near. But when the ball is on the other half of the court, the robot does not detect the ball. Very difficult to tune. Reconfigured colors to detect the ball multiple times. Rand into the same problem. (3h)+
-
-=== Monday 2022-12-5
-*Anish:* Continued with ball following. Slight progress in the ball following, but the same problem of not detecting when the ball is farther away. (2h)+
-
-=== Thursday 2022-12-8
-*Anish:* Tried implementing the state machine logic and responding to referee commands. (1.5h)+
-
-=== Monday 2022-12-12
-*Anish:* Solving issues with the Pull Requests for reviewing the codes: dynamic USB COM port search, state machine implementation, refereee commands. (2h)+
-
-*Georgs* Milled out the wheel connectors using a lathe (5h)+
-
 === Tuesday 2022-11-29 
 *Georgs* Assembled an omniwheel using all of the needed parts, works great! (3h)+
 
+=== Thursday 2022-12-02
+*Anish:* Tested the ball detection and ball follow. Works good when the ball is near. But when the ball is on the other half of the court, the robot does not detect the ball. Very difficult to tune. Reconfigured colors to detect the ball multiple times. Rand into the same problem. (3h)+
+
+
 == Monday 2022-12-05
 *Georgs* Robot chassis design approved, fixed some last changes, ready for fabrication (4h)+
+*Georgs* Milled out the wheel connectors using a lathe (5h)+
+*Anish:* Continued with ball following. Slight progress in the ball following, but the same problem of not detecting when the ball is farther away. (2h)+
 
 == Tuesday 2022-12-07
 *Georgs* All parts which need to be printed have been printed (~8h printing time)
+
+=== Thursday 2022-12-8
+*Anish:* Tried implementing the state machine logic and responding to referee commands. (1.5h)+
 
 == Friday 2022-12-09
 *Georgs* Robot chassis and everything milled out with the CNC (4h)+
 
 == Saturday 2022-12-10
 *Georgs* CNCd parts cleaned up, partial assembly. Need to migrate some components from the test robot to the new one (8h+)
+
+=== Monday 2022-12-12
+*Anish:* Solving issues with the Pull Requests for reviewing the codes: dynamic USB COM port search, state machine implementation, refereee commands. (2h)+
