@@ -91,15 +91,7 @@ image::electronics/Images/PCB_back.PNG[]
 9. GND
 10. NRST
 
-===== Motor Encoder Connectors
-===== J8 Motor1 Encoder
-
-1. GND
-2. 3.3V
-3. Encoder A
-4. Encoder B
-
-===== Motor Encoders (J9 & J10)
+===== Motor Encoder Connectors (J8, J9, J10)
 
 1. GND
 2. 3.3V
