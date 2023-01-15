@@ -3796,7 +3796,7 @@
     (in_bom yes) (on_board yes)
     (uuid 05326018-b35f-42b0-9a16-da15e907dc32)
     (property "Reference" "R12" (id 0) (at 257.9878 194.0052 90))
-    (property "Value" "3k" (id 1) (at 257.429 195.9864 90))
+    (property "Value" "3k3" (id 1) (at 257.429 195.9864 90))
     (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (id 2) (at 257.4036 200.025 90)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -5895,7 +5895,7 @@
     (in_bom yes) (on_board yes)
     (uuid eb00807f-b767-463a-9f57-9eb150262a6d)
     (property "Reference" "R10" (id 0) (at 257.5306 158.1912 90))
-    (property "Value" "3k" (id 1) (at 256.9718 160.1724 90))
+    (property "Value" "3k3" (id 1) (at 256.9718 160.1724 90))
     (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (id 2) (at 256.9464 164.211 90)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -5947,7 +5947,7 @@
     (in_bom yes) (on_board yes)
     (uuid f3a6bcfc-339f-4eff-995d-15ea294cd522)
     (property "Reference" "R11" (id 0) (at 257.7338 123.1392 90))
-    (property "Value" "3k" (id 1) (at 257.175 125.1204 90))
+    (property "Value" "3k3" (id 1) (at 257.175 125.1204 90))
     (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (id 2) (at 257.1496 129.159 90)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -6403,13 +6403,13 @@
       (reference "R4") (unit 1) (value "1k5") (footprint "Resistor_SMD:R_0603_1608Metric")
     )
     (path "/eb00807f-b767-463a-9f57-9eb150262a6d"
-      (reference "R10") (unit 1) (value "3k") (footprint "Resistor_SMD:R_0603_1608Metric")
+      (reference "R10") (unit 1) (value "3k3") (footprint "Resistor_SMD:R_0603_1608Metric")
     )
     (path "/f3a6bcfc-339f-4eff-995d-15ea294cd522"
-      (reference "R11") (unit 1) (value "3k") (footprint "Resistor_SMD:R_0603_1608Metric")
+      (reference "R11") (unit 1) (value "3k3") (footprint "Resistor_SMD:R_0603_1608Metric")
     )
     (path "/05326018-b35f-42b0-9a16-da15e907dc32"
-      (reference "R12") (unit 1) (value "3k") (footprint "Resistor_SMD:R_0603_1608Metric")
+      (reference "R12") (unit 1) (value "3k3") (footprint "Resistor_SMD:R_0603_1608Metric")
     )
     (path "/4a2b4f29-f72e-45b4-b4d3-dfc4af3332a7"
       (reference "U1") (unit 1) (value "CM1223") (footprint "CM1223-02SO:SOT95P280X145-5N")
