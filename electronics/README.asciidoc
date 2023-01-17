@@ -18,7 +18,7 @@ The high-power driving side also consists of a 5V TPS62933 voltage regulator con
 
 The board can control 3 brushed DC motors. The motor driver (DRV8243HRXYQ1) has input voltage of 16.8V coming from the battery.
 
-Since ni ITRIP resistor is used, the voltage at ITRIP pin in 2.97 V. IPROPI is connected to 3.3k resistor. Therefore, the output current is given by:   +
+Since no ITRIP resistor is used, the voltage at ITRIP pin in 2.97 V. IPROPI is connected to 3.3k resistor. Therefore, the output current is given by:   +
 output current = (2.97 V/3.3 kohms) * 3070 = 2.76 A.    +
 Therefore, the output of the motor driver is 2.76 A.
 
