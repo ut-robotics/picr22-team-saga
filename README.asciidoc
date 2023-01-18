@@ -1,0 +1,293 @@
+== Team SAGA
+
+=== Team members
+- Mechanics: Georgs Narbuts   
+- Elecronics(Design) + Programming: Anish Shrestha   
+- Firmware: Artem Kabakov   
+   
+
+== Programming
+
+=== Used Modules and Libraries
+==== Libraries
+`Numpy` for mathematical arrays and storing data for image processing operations and iterating over the objects     +
+`OpenCV` to interface the in-built libraries for computer vision     +
+`Pyrealsense2` to interface the Realsense Camera and its configurations   +
+`Pyserial` for serial communication with the STM32 microcontroller over USB      +
+`enum` to make enum classes for setting the states for state machine logic      +
+`serial.tools.list_ports` to dynamically search for the COm ports for serial communication      +
+
+==== Modules
+===== Color.py
+This program stores the data of the colors that are detected after configuring using the `config_colors.py` program.    +
+
+===== config_color.py
+This program is used mainly to configure colors for various objects in the camera frame, such as balls, court, baskets, etc.
+
+===== image_processor.py
+This is the module responsible for the image processing operations and detecting colors for image segmentation. This module produces the processed image frame and all of its objects necessary for further analysis and processing.
+
+===== robot_State.py
+An enum class defined to set the state at which the robot may be at an instant.
+
+===== api.py
+The python module responsible to communicate serially with the STM32 microcontroller over USB. This module finds the USB device dynamically.
+
+===== state_machine.py
+The module which detects the state of teh robot at any current instant, taking the processed frame inputs from the `main.py` module, and acting accordingly what to do when a robot is in a particular state, i.e., whether to advance forward, por turn, or stay still.
+
+===== main.py
+The main module which initiates the image processing module and generates a processed frame and forwards this processed frame to the `state_machine.py` module. This module is also responsible to print messages in the prompt and broadcast the current image frame (as a live stream in the screen indicating the objects, such as: largest ball, specific baskets, etc).
+
+=== Game Logic
+Initially, the robot is in the state: `FIND_A_BALL`. In this state, the robot searches the ball. If there is no ball to be seen in the processed camera frame, then it keeps rotating at the same place and detects the ball.    +
+
+If the ball is detected then the state of the robot changes from `FIND_A_BALL` to `FOLLOW_A_BALL`. However, if the robot is unable to find a ball even after a certain timeout window, then it detects the farther basket (magenta or blue), and then drives towards the opposite half, still searching the ball. In this case, it's status would be 'DRIVE_TO_OTHER_HALF'.      +
+
+As soon as the robot sees a ball, the status will be changed to "FIND_A_BALL".    +
+
+This is an implementation of a state machine logic.     +
+
+image::Images/main.PNG[]    
+
+image::Images/state_machine_workflow.PNG[]   
+
+=== Self Analysis
+- The state machine logic implementation works pretty good (not all tasks were completed: till follow the ball)
+- Robot's response to tracking the ball as per ball's movement is accurate
+- Detection of farther basket and driving towards the opposite half when the ball is far could be better optimized
+
+== Electronics
+
+The mainboard comprises of 3 DC motor drivers, each of which is responsible to control an individual DC motor. The drivers are powered by 4S LiPo battery and the microcontroller side is powered through USB, whose other end is connected to the on-board PC (NUC).    +
+
+The microcontroller and the PC also communicates over serial through the same USB connection.
+
+The Electronics part comprises of two subtasks: 
+- Electronics Design and Fabrication
+- Firmware programming
+
+3D view of the designed PCB:    +
+
+image::Images/PCB_front.PNG[]
+
+image::Images/PCB_back.PNG[]
+
+
+The electronics design is completed, and the PCB was fabricated by JLCPCB and recived as well.
+
+PCB received:
+
+image::Images/PCB.PNG[]
+
+However, the board had some problems. Firstly, the pads where the battery's positive terminal needed to be connected were left unconnected. Thus, this connection needed to be provided by some other means. Secondly, the voltage protection MOSFET kept on burning everytime.
+
+So for connecting the battery's terminal, the line from the MOSFET's inputs were taken. Since we could not make use of the reverse voltage protection MOSFET, we decided not to use the MOSFET and provided the supply for the drivers straight from battery.
+
+image::Images/problem.PNG[]
+
+
+Cable Management:   
+
+image::Images/cable_management.PNG[]
+
+
+But, we decided not to use this PCB for the robot, and proceeded with the test robot's PCB adn firmware, and building the software programs over the test robot's electronics hardware.
+
+=== Self Analysis
+
+- The designed PCB was good, but because of some software(KiCAD) glitches, a pad remained unconnected which could not be detected before fabrication unfortunately. This thing could have been resolved.
+- Not being able to make use of the MOSFET was a major setback for the electronics part. The were no issues with the footprint. This part could have been better dealt with.
+- The worst thing about the electronics part was that the firmware part was not complete.
+
+
+== Mechanics
+The test robot we received was in quite a bad condition. A lot of critical components and holes were either cut out or modified by mechanical means, so at first, taking the measurements for a test thrower was quite a nightmare, but after getting access to the test robot's cad files, the design of test thrower went on much more smoothly. 
+
+Even though the test robot was quite janky it served us well during testing of software/firmware phases. 
+
+When it comes to our actual robot's design, it was quite different from the test one (fusion360 assembly link: https://a360.co/3kaIMCJ):
+
+image::Images/robot.png[]
+
+image::Images/robot_side.png[]
+
+image::Images/robot_top.png[]
+
+
+
+
+- Firstly, we made our robot quite a bit smaller (240mm in diameter)
+- The motor mounts are attached to both the top and bottom plate thus making the whole assembly more sturdy:
+
+image::Images/motor_mounts.png[]
+
+- The omniwheels were 3D printed, the rollers were pressure fitted which greatly decreases the parts complexity and increases the ease of serviceability. The connector which fastens the wheel to the motors shaft is made out of aluminium on a lathe.
+
+image::Images/omniwheel.png[]
+
+image::Images/omniwheel_pressurefit.png[]
+
+
+For the thrower, design wise I went the most popular way. It being 2 ramps that are connected to 2 sidewalls using M3 spacers. The sidewalls are fastened to both the bottom and top plate and to one of them, a thrower motor with a spacer is screwed on. The throwing angle of the ramps is 55 degrees.
+
+image::Images/thrower.png[]
+
+image::Images/New_robot.PNG[]
+
+=== Self Analysis
+
+- More thought and time should've been put into the cable management routing. In our current robot there isn't much dedicated space for wires to sit or to be managed. A great addition would be a 3d printed bracket which holds the power switches along with the battery connectors on the robots side, this would make the cable management look more tidy and organised. 
+- The small form factor makes our robot more agile on the playing field compared to our test robot. At first we had our concerns about the center of gravity being too high, but it turned out fine in the end. 
+- If we had more time for the design, we would have implemented a thrower with variable angle of throwing.
+
+=== Personal comments
+
+==== Georgs Narbuts
+
+I mainly worked on mechanics with a little bit of electronics for the test robot. This was my first experience using Fusion360 and really enjoyed it although it was quite frustrating from time to time. There's no doubt that I only explored 1% of everything fusion360 offers and a lot of things could probably be done faster and easier.
+
+Really like that we had access to the lab with all of the tools. Even though I've had quite a lot of experience in fabricating things before this, I never had the chance to use a cnc mill or a lathe. The amount of 3d printers is also very nice, rarely all of them were occupied. 
+
+If i had to do something differently the next time, I would definitely put more emphasis on time management since the deadlines were coming up very fast and some of the things had to be rushed thus leading to a lower quality product.
+
+In my opinion the course offers a person to gain experience in several fields, be it mechanics, electronics or programming. The instructors are understanding and helpful if you happen to run into any issues. The practical, communication skills gained in this course are valuable.
+
+Suggestions for the next year students:
+
+- Team work makes the dream work. Usually without motivated teammates and good communication the project is bound to fail.
+
+- Time management is key, don't leave everything to the last minute.
+
+==== Anish Shrestha
+
+I mainly worked on the electronics design and software programming tasks, along with assembly of the test robot. This was my first time experience with the multi-layer PCB design, and especially the SMD components. This experience was pretty fruitful as I learned few new things while working with the electronics design, especially designing the high-current paths and impedance matching in the differential pair routing. I had prior experience with KiCAD, so the entire designing process went smooth for me.
+
+Moreover, in the software programming task, it was a new experience for me as I have very little experience in programming before. Even though I was familiar with ROS programming, here most of the things need to be set and configured manually which was a challenging task. Also, this was my first time experience with the state machine logic, and I came to know about its significance in such as complex software architecture. Overall, it was a fun experience which taught me a lot of things.
+
+Personally, I feel prioritizing the tasks is an undermined skill which should be acknowledged by all. This makes the flow of the work more practical, as different category of tasks have distinct deadlines. So if I could change one thing in our approach, I would put this task as a reminder. Also, configuration of the colors is something that is very crucial for this project, but is sometimes neglected which results in very poor outcomes. I needed to spend hours in the later stages of the project just configuring colors. So for an improved version of the robot, color configuration should be put a little more effort and a little more time.
+
+Also, revised cross-checking the electronics design is an important task that should be carried out. We missed out a connection in one of the power pads, which created a mess actually. So for next time, I would give more attention to these minute details.
+
+Suggestions for next year students:
+- Take some time and choose the team members wisely.
+- Plan the project timeline better.
+- Skim through the tasks at the start so you would know what things you need to cover until the end of the project. If you need to acquire new skills, it's better to start early.
+
+
+=== Blog
+
+=== Monday 2022-09-05
+*Anish:* Connected the main board if the test robot with motor drivers. Placed everything in the chasis provided. Checked the wire connections. (2h) +   
+*Georgs:* Took measurements of the test robot so that the thrower can be made. (2h) +
+
+=== Thursday 2022-09-08
+*Anish:* Gone through the schematic to follow for wiring. Prepared the wire accordingly with appropriate conenctors. Connected everything as per the schematic. Tested motors individually, and conenction with the drivers. (1.5h) +  
+
+=== Friday 2022-09-09
+*Georgs:* Started designing the test thrower. Had some problems with Fusion360, but figured them out. (5h) +
+
+=== Monday 2022-09-12
+*Anish*: Following the completion of software, tested for driving the test robot straight, commands given from the computer manually. Conencted the thrower motor, and tested. Proceded to schematic design for new robot. (2.5h) +   
+*Georgs:* Measure the thrower motor dimensions and made a model. Showed the test thrower design to the supervisors. Received some input on what to redesign. (2.5h) +
+   
+=== Thursday 2022-09-15
+*Anish:* Completed the schematic design (apparently). Started the work for pcb design. Changed one of the motors as it turned out to be faulty. tested the new motor, and assembled it in the test robot. (2h) +   
+
+== Sunday 2022-09-18
+*Georgs:* Completed the revised thrower design. (4h) +
+
+== Monday 2022-09-19
+*Georgs:* Submitted the thrower design for approval, got some feedback that needs to be fixed. (1.5h) +
+
+=== Monday 2022-09-19
+*Anish:* PCB design continued. Some new footprints made (custom). Progress presentation. (1.5h)+   
+
+=== Thursday 2022-09-22
+*Anish:* The omni-motion tested. Got sued to the battery basics, and received teh batetry. Made connectors compliant to the ones with abttery. Rewired the test robot. (2h)+   
+
+=== Monday 2022-09-26
+*Anish:* Needed to change the PCB schematic adn design since few components were changed. PCB was too large, needed to make it smaller. (1h)+   
+
+=== Thursday 2022-09-29
+*Anish:* PCB design completed. Needed few final tweaks. Sent the design for approval. Assembled the parts of the test robot after changing few parts (motor and driver) (1.5h)+   
+
+=== Thursday 2022-10-06
+*Anish:* With some of the previous issues solved, the PCB design had new issues assigned. Sequentially tried to sort those issues. (1.5h)+
+*Georgs* Thrower design aproved, got acquainted with the CNC mill. Milled out parts for the thrower. (3h)+
+
+=== Monday 2022-10-10
+*Anish:* Still there were issues with the board design. Mainly with the high current paths and differential USB pair routing. Updated the board with hgh current paths with copper fill. Tweaked few other things in the PCB design to make it an optimal design (1.5h)+
+*Georgs* Assembled the thrower and attached it to the test robot. (2h)+
+
+=== Monday 2022-10-24
+*Anish:* Rewired the cables including the thrower motor in test robot. Checked the connections and if the motors were well connected by powering the robot and driving the motors: wheels and thrower. Continued with the PCB design part. (1.5h)+
+*Georgs* Started designing the omni-wheels. Goes very slow. (3.5h)+
+
+=== Thursday 2022-10-27
+*Anish:* Pushed the new design to github repo. Got few more issues in the design, and solved them. Repushed the commits. Few issues were remaining. Waiting for the response/approval. (2h)+
+
+=== Monday 2022-10-31
+*Anish:* Progress presentation. Started camera calibration. (1.5h) +
+*Georgs* Progress presentations, wheel design started. (2h) +
+*Artem:* Attended progress presentations. (1h) +
+
+=== Thursday 2022-11-3
+*Anish:* Some issues related to the realsense library. Solving the issues. Started camera configuration: blod detection and setting optimum parameter values. (2h) +   
+*Artem:* Received PCB and Start soldering. Work with camera calibration. (1.5h) +  
+
+=== Monday 2022-11-7
+*Anish:* Configured color settings for the realsense and started the ball detection. Lighting and brightness gives problems while ball detection. Reconfigured color settings and parameters. (2.5h) +   
+*Georgs* Omniwheel design, took some measurements. Everythings going smoothly. (2h) +
+*Artem:* Resolve issues with PCB. Running ball detection program. (2h) +
+
+=== Thursday 2022-11-10
+*Anish:* Configures the camera in computer lab. Detects the ball. But in other rooms, the ball detection program is irresponsive. Sorting out the problems. (2h) +   
+*Georgs* Printed a test piece for omniwheel design. The rollers fit in great. The design is ready for approval. Submitted for approval. (3h) +
+*Artem:* Soldering and working with the PCB. Many problems faced in order to sue the new PCBs.(1.5h) +
+
+=== Monday 2022-11-14
+*Anish:* Progress presentation. Tried to reconfigure all the things including the baskets and field. (2h) +
+
+=== Thursday 2022-11-17
+*Anish:* Mainboard communication with the software part, communicating over serial. Sending commands for motors turning in various configuration with thrower as well. Configuring various objects like balls, field, baskets, b/w parts and others. Tried to come up with a proper detection algorithm. (3h) +
+*Artem:* Testing the mainboard; driving motors (1h) +
+*Georgs* Printed out all of the needed omniwheel parts (3h)+
+
+=== Monday 2022-11-21
+*Anish:* Programmed for the robot to find the ball and turn where the ball is. Used the linear scaling to map the speed from the distance between the ball and the center of the camera frame. Problems detected with linear scling: not accurat and has issues as ball is pretty far from the robot. Tried further to scale the speed, but failed. (3.5h) +
+*Artem:* Soldering the new PCB. Connected few terminals with wire as the MOSFET could not tbe interfaced. (1.5h) +
+
+=== Wednesday 2022-11-23
+*Anish:* Programmed the software part for ball detectiona nd follow. Ran into the same problem of not so precise ball tracking. Detects the ball but the tracking algorithm fails. Need to change the scaling factor and might need to incorporate PID control as the movement in left and right motion is not symmetric. Tested the thrower and calibrated the thrower speed according to the distance. interpoaltion yet to be implemented. Here also lienar scaling performed, but not precise. Reconfigured all color confugurations again as theer were few problems while ball detection. (4.5h) +
+
+
+=== Monday 2022-11-28
+*Anish:* Progress presentation.Tuned the proportional tuning for P-controller, scaling the speeds for controlled motion of the robot. Reconfigured colors for better object derection, especially balls. (2.5h)+
+
+=== Tuesday 2022-11-29 
+*Georgs* Assembled an omniwheel using all of the needed parts, works great! (3h)+
+
+=== Thursday 2022-12-02
+*Anish:* Tested the ball detection and ball follow. Works good when the ball is near. But when the ball is on the other half of the court, the robot does not detect the ball. Very difficult to tune. Reconfigured colors to detect the ball multiple times. Rand into the same problem. (3h)+
+
+
+== Monday 2022-12-05
+*Georgs* Robot chassis design approved, fixed some last changes, ready for fabrication (4h)+
+*Georgs* Milled out the wheel connectors using a lathe (5h)+
+*Anish:* Continued with ball following. Slight progress in the ball following, but the same problem of not detecting when the ball is farther away. (2h)+
+
+== Tuesday 2022-12-07
+*Georgs* All parts which need to be printed have been printed (~8h printing time)
+
+=== Thursday 2022-12-8
+*Anish:* Tried implementing the state machine logic and responding to referee commands. (1.5h)+
+
+== Friday 2022-12-09
+*Georgs* Robot chassis and everything milled out with the CNC (4h)+
+
+== Saturday 2022-12-10
+*Georgs* CNCd parts cleaned up, partial assembly. Need to migrate some components from the test robot to the new one (8h+)
+
+=== Monday 2022-12-12
+*Anish:* Solving issues with the Pull Requests for reviewing the codes: dynamic USB COM port search, state machine implementation, refereee commands. (2h)+
