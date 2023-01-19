@@ -1,0 +1,29 @@
+== SAGA Firmware
+
+We did not come up with the custom dormware, so we sticked with the same firmware as that of test robot
+
+=== Data sent to the mainbaord
+
+Firstly, an object for writing over the serial inteface to the main board was created   +
+``
+data = struct.pack('<hhhHBH', motors[0], motors[1], motors[2], 48, 0, 0xAAAA)   +
+``
+Here, the `struct` library converts between python values and C structs represented as python `bytes` objects, in order to pack the byte together to send to the mainboard.
+
+`struct.pack` returns a byte object with the values `motors[0]`, `motors[1]`, `motors[2]` packed according to the format `<hhhHBH`, i,e, the integer formats.
+
+`motors[0]`, `motors[1]` and `motors[2]` are the speed values for individual motors calculated according to the omni-directional kinematics.
+
+This returned byte data is sent over Pyserial to the mainboard at a baud rate of 115200     +
+``
+self.ser = serial.Serial(serial_port, 115200)   +
+self.ser.write(data)    +
+``
+
+=== Data received from the mainboard
+
+Here, no data is received from the mainboard, as we have implemented only a one-way communication between the mainboard and the system(NUC), over which the software (main program) sends motor speeds over the serial bus, and the mainboard drives the motors in that particular speed.
+
+``
+self.ser.read()     +
+``
